@@ -1,76 +1,118 @@
+using System;
 using Melanchall.DryWetMidi.Interaction;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Lane : MonoBehaviour
 {
     public Melanchall.DryWetMidi.MusicTheory.NoteName noteRestriction;
     public KeyCode input;
+
     public GameObject notePrefab;
-    public GameObject wordPrefab;
-    private GameObject currentWord = null;
-    List<Note> notes =  new List<Note>();
+
+    //public GameObject wordPrefab;
+    //private GameObject currentWord = null;
+    List<Note> notes = new List<Note>();
     public List<double> timeStamps = new List<double>();
     public List<int> lyricIndex = new List<int>();
 
     int spawnIndex = 0;
     int inputIndex = 0;
 
-    public void SetTimeStamps(Melanchall.DryWetMidi.Interaction.Note[] array) {
+    public TextMeshPro lyricsText;
+    private bool _lineBreak;
+    
+    public void SetTimeStamps(Melanchall.DryWetMidi.Interaction.Note[] array)
+    {
         int index = 0;
-        foreach (var note in array) {
-            if (note.NoteName == noteRestriction) {
-                var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan> (note.Time, SongManager.midiFile.GetTempoMap());
-                timeStamps.Add((double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double) metricTimeSpan.Milliseconds / 1000f);
+        foreach (var note in array)
+        {
+            if (note.NoteName == noteRestriction)
+            {
+                var metricTimeSpan =
+                    TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, SongManager.midiFile.GetTempoMap());
+                timeStamps.Add((double) metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds +
+                               (double) metricTimeSpan.Milliseconds / 1000f);
 
                 lyricIndex.Add(index);
-
             }
 
             index++;
         }
     }
 
-    void Update() {
-        if (spawnIndex < timeStamps.Count) {
-            if (SongManager.GetAudioSourceTime() >= timeStamps[spawnIndex] - SongManager.Instance.noteTime) {
+    void Update()
+    {
+        if (spawnIndex < timeStamps.Count)
+        {
+            if (SongManager.GetAudioSourceTime() >= timeStamps[spawnIndex] - SongManager.Instance.noteTime)
+            {
                 var note = Instantiate(notePrefab, transform);
                 notes.Add(note.GetComponent<Note>());
-                note.GetComponent<Note>().assignedTime = (float)timeStamps[spawnIndex];
+                note.GetComponent<Note>().assignedTime = (float) timeStamps[spawnIndex];
                 spawnIndex++;
             }
         }
 
-        if (inputIndex < timeStamps.Count) {
+        if (inputIndex < timeStamps.Count)
+        {
             double timeStamp = timeStamps[inputIndex];
             double marginOfError = SongManager.Instance.marginOfError;
-            double audioTime = SongManager.GetAudioSourceTime() - (SongManager.Instance.inputDelayInMilliseconds / 1000.0);
+            double audioTime = SongManager.GetAudioSourceTime() -
+                               (SongManager.Instance.inputDelayInMilliseconds / 1000.0);
 
-            if (timeStamp + marginOfError <= audioTime) {
+            if (timeStamp + marginOfError <= audioTime)
+            {
                 Miss();
-                Debug.Log("Miss on " + inputIndex);
+                //Debug.Log("Miss on " + inputIndex);
                 inputIndex++;
                 timeStamp = timeStamps[inputIndex];
             }
 
-            if (Input.GetKeyDown(input)) {
+            if (Input.GetKeyDown(input))
+            {
+                if (_lineBreak)
+                {
+                    lyricsText.text = "";
+                    _lineBreak = false;
+                }
+                
                 GetComponent<SpriteRenderer>().color = new Color(0, 0, 0);
 
-                if (Mathf.Abs((float)(audioTime - timeStamp)) < marginOfError) {
+                if (Mathf.Abs((float) (audioTime - timeStamp)) < marginOfError)
+                {
                     //hit note
-                    Debug.Log("Hit on " + inputIndex + " " + SongManager.Instance.lyrics[lyricIndex[inputIndex]]);
+                    //Debug.Log("Hit on " + inputIndex + " " + SongManager.Instance.lyrics[lyricIndex[inputIndex]]);
                     Hit();
                     Destroy(notes[inputIndex].gameObject);
+                    
+                    String word = SongManager.Instance.lyrics[lyricIndex[inputIndex]];
+                    char last = word.ToCharArray()[word.Length - 1];
+                    if (last == '\r' || last == '\n' || last == '\t' || last == '\v')
+                    {
+                        lyricsText.text += word.Substring(0, word.Length - 2) + " ";
+                        _lineBreak = true;
+                    }
+                    else
+                    {
+                        lyricsText.text += word.Substring(0, word.Length - 1) + " ";
+                    }
 
+                    /*
                     if (currentWord != null)
                         Destroy(currentWord);
                     currentWord = Instantiate(wordPrefab);
                     currentWord.GetComponent<TMPro.TextMeshPro>().text = SongManager.Instance.lyrics[lyricIndex[inputIndex]];
                     Destroy(currentWord, 2f);
+                    */
 
                     inputIndex++;
-                } else {
+                }
+                else
+                {
+                    lyricsText.text += "uh... ";
                     //innacurate note
                     /*Debug.Log("Innacurate on " + inputIndex);
 
@@ -87,18 +129,19 @@ public class Lane : MonoBehaviour
             }
         }
 
-        if(!Input.GetKey(input)) {
+        if (!Input.GetKey(input))
+        {
             GetComponent<SpriteRenderer>().color = new Color(255, 255, 255);
-
         }
     }
 
-    private void Hit() {
+    private void Hit()
+    {
         ScoreManager.Hit();
     }
 
-    private void Miss() {
+    private void Miss()
+    {
         //ScoreManager.Miss();
     }
-
 }
