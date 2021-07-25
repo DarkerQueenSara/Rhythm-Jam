@@ -1,0 +1,13 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/contentModel.xml
+/projectSettingsUpdater.xml
+/.idea.Rhythm Jam.iml
+/modules.xml
+# Datasource local storage ignored files
+/../../../../../../../../../:\Users\catra\Documents\Unity Projects\Rhythm Jam\.idea\.idea.Rhythm Jam\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
