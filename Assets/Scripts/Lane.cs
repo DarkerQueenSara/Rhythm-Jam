@@ -17,6 +17,12 @@ public class Lane : MonoBehaviour
     int spawnIndex = 0;
     int inputIndex = 0;
 
+    private Player currentPlayer;
+
+    void Start() {
+        currentPlayer = RoundController.Instance.GetCurrentPLayer();
+    }
+
     public void SetTimeStamps(Melanchall.DryWetMidi.Interaction.Note[] array) {
         int index = 0;
         foreach (var note in array) {
@@ -40,7 +46,7 @@ public class Lane : MonoBehaviour
                 note.GetComponent<Note>().assignedTime = (float)timeStamps[spawnIndex];
                 spawnIndex++;
             }
-        }
+        } 
 
         if (inputIndex < timeStamps.Count) {
             double timeStamp = timeStamps[inputIndex];
@@ -50,26 +56,34 @@ public class Lane : MonoBehaviour
             if (timeStamp + marginOfError <= audioTime) {
                 Miss();
                 Debug.Log("Miss on " + inputIndex);
-                inputIndex++;
-                timeStamp = timeStamps[inputIndex];
+                if(inputIndex < timeStamps.Count - 1) {
+                    inputIndex++;
+                    timeStamp = timeStamps[inputIndex];
+                }
             }
 
-            if (Input.GetKeyDown(input)) {
-                GetComponent<SpriteRenderer>().color = new Color(0, 0, 0);
+            if ((IsPlayer() && Input.GetKeyDown(input)) || !IsPlayer()) {
+
+                if(IsPlayer())
+                    GetComponent<SpriteRenderer>().color = new Color(0, 0, 0);
 
                 if (Mathf.Abs((float)(audioTime - timeStamp)) < marginOfError) {
-                    //hit note
-                    Debug.Log("Hit on " + inputIndex + " " + SongManager.Instance.lyrics[lyricIndex[inputIndex]]);
-                    Hit();
-                    Destroy(notes[inputIndex].gameObject);
+                    if(IsPlayer() || (!IsPlayer() && currentPlayer.AIHit())) {
+                        GetComponent<SpriteRenderer>().color = new Color(0, 0, 0);
 
-                    if (currentWord != null)
-                        Destroy(currentWord);
-                    currentWord = Instantiate(wordPrefab);
-                    currentWord.GetComponent<TMPro.TextMeshPro>().text = SongManager.Instance.lyrics[lyricIndex[inputIndex]];
-                    Destroy(currentWord, 2f);
+                        //hit note
+                        Debug.Log("Hit on " + inputIndex + " " + SongManager.Instance.lyrics[lyricIndex[inputIndex]]);
+                        Hit();
+                        Destroy(notes[inputIndex].gameObject);
 
-                    inputIndex++;
+                        if (currentWord != null)
+                            Destroy(currentWord);
+                        currentWord = Instantiate(wordPrefab);
+                        currentWord.GetComponent<TMPro.TextMeshPro>().text = SongManager.Instance.lyrics[lyricIndex[inputIndex]];
+                        Destroy(currentWord, 2f);
+
+                        inputIndex++;
+                    }
                 } else {
                     //innacurate note
                     /*Debug.Log("Innacurate on " + inputIndex);
@@ -91,6 +105,10 @@ public class Lane : MonoBehaviour
             GetComponent<SpriteRenderer>().color = new Color(255, 255, 255);
 
         }
+    }
+
+    bool IsPlayer() {
+        return currentPlayer.playerType == Player.PlayerType.PLAYER;
     }
 
     private void Hit() {
