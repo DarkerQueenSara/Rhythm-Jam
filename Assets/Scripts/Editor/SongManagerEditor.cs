@@ -22,6 +22,7 @@ public class SongManagerEditor : Editor
     }
 
     void UpdateLyricsFromFile() {
+        Debug.Log("updated lyrics");
         SongManager songManager = target as SongManager;
         songManager.lyrics = songManager.lyricFile.text.Split(new char[] {' ', '\n', ',', '-', '!', '?', '\t'}, StringSplitOptions.RemoveEmptyEntries);
 

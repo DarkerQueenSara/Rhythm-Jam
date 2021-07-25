@@ -5,6 +5,7 @@ using System;
 
 public class RoundController : MonoBehaviour
 {
+    public static RoundController Instance;
     public Player[] players;
     public int currentPlayerIndex;
     public enum RoundPhase {
@@ -14,9 +15,12 @@ public class RoundController : MonoBehaviour
 
     public RoundPhase currentRoundPhase;
 
+    void Awake() {
+        Instance = this;
+    }
+    
     void Start() {
         GameEvents.Instance.RoundPhaseOver += RoundPhaseOver;
-
 
         if(players.Length == 0) Debug.LogError("No players assigned");
         currentPlayerIndex = 0;
