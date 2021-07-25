@@ -24,7 +24,7 @@ public class SongManagerEditor : Editor
     void UpdateLyricsFromFile() {
         Debug.Log("updated lyrics");
         SongManager songManager = target as SongManager;
-        songManager.lyrics = songManager.lyricFile.text.Split(new char[] {' ', '\n', ',', '-', '!', '?', '\t'}, StringSplitOptions.RemoveEmptyEntries);
+        songManager.lyrics = songManager.lyricFile.text.Split(new char[] {' ', '\n', '-', '!', '?', '\t'}, StringSplitOptions.RemoveEmptyEntries);
 
         //clean remaining empties
         songManager.lyrics = (songManager.lyrics).Where(word => word[0] >= '<' && word [0] <= 'z').ToArray();
