@@ -14,20 +14,21 @@ public class Lane : MonoBehaviour
 
     //public GameObject wordPrefab;
     //private GameObject currentWord = null;
-    List<Note> notes = new List<Note>();
+    private List<Note> _notes = new List<Note>();
     public List<double> timeStamps = new List<double>();
     public List<int> lyricIndex = new List<int>();
 
-    int spawnIndex = 0;
-    int inputIndex = 0;
+    private int _spawnIndex = 0;
+    private int _inputIndex = 0;
 
     public TextMeshPro lyricsText;
     private bool _lineBreak;
     
-    private Player currentPlayer;
+    private Player _currentPlayer;
+    private Player _opponent;
 
     void Start() {
-        currentPlayer = RoundController.Instance.GetCurrentPLayer();
+        _currentPlayer = RoundController.Instance.GetCurrentPLayer();
     }
 
     public void SetTimeStamps(Melanchall.DryWetMidi.Interaction.Note[] array) {
@@ -50,20 +51,20 @@ public class Lane : MonoBehaviour
 
     void Update()
     {
-        if (spawnIndex < timeStamps.Count)
+        if (_spawnIndex < timeStamps.Count)
         {
-            if (SongManager.GetAudioSourceTime() >= timeStamps[spawnIndex] - SongManager.Instance.noteTime)
+            if (SongManager.GetAudioSourceTime() >= timeStamps[_spawnIndex] - SongManager.Instance.noteTime)
             {
                 var note = Instantiate(notePrefab, transform);
-                notes.Add(note.GetComponent<Note>());
-                note.GetComponent<Note>().assignedTime = (float) timeStamps[spawnIndex];
-                spawnIndex++;
+                _notes.Add(note.GetComponent<Note>());
+                note.GetComponent<Note>().assignedTime = (float) timeStamps[_spawnIndex];
+                _spawnIndex++;
             }
         } 
 
-        if (inputIndex < timeStamps.Count)
+        if (_inputIndex < timeStamps.Count)
         {
-            double timeStamp = timeStamps[inputIndex];
+            double timeStamp = timeStamps[_inputIndex];
             double marginOfError = SongManager.Instance.marginOfError;
             double audioTime = SongManager.GetAudioSourceTime() -
                                (SongManager.Instance.inputDelayInMilliseconds / 1000.0);
@@ -71,11 +72,11 @@ public class Lane : MonoBehaviour
             if (timeStamp + marginOfError <= audioTime)
             {
                 Miss();
-                Debug.Log("Miss on " + inputIndex);
+                Debug.Log("Miss on " + _inputIndex);
                 lyricsText.text += "uh... ";
-                inputIndex++;
-                if(inputIndex < timeStamps.Count) {
-                    timeStamp = timeStamps[inputIndex];
+                _inputIndex++;
+                if(_inputIndex < timeStamps.Count) {
+                    timeStamp = timeStamps[_inputIndex];
                 }
             }
 
@@ -91,42 +92,45 @@ public class Lane : MonoBehaviour
                     GetComponent<SpriteRenderer>().color = new Color(0, 0, 0);
 
                 if (Mathf.Abs((float)(audioTime - timeStamp)) < marginOfError) {
-                    if(IsPlayer() || (!IsPlayer() && currentPlayer.AIHit())) {
+                    if(IsPlayer() || (!IsPlayer() && _currentPlayer.AIHit())) {
                         GetComponent<SpriteRenderer>().color = new Color(0, 0, 0);
 
                         //hit note
-                        Debug.Log("Hit on " + inputIndex + " " + SongManager.Instance.lyrics[lyricIndex[inputIndex]]);
+                        Debug.Log("Hit on " + _inputIndex + " " + SongManager.Instance.lyrics[lyricIndex[_inputIndex]]);
                         Hit();
-                        Destroy(notes[inputIndex].gameObject);
+                        Destroy(_notes[_inputIndex].gameObject);
 
-                        String word = SongManager.Instance.lyrics[lyricIndex[inputIndex]];
+                        String word = SongManager.Instance.lyrics[lyricIndex[_inputIndex]];
                         char last = word.ToCharArray()[word.Length - 1];
                         if (last == '\r' || last == '\n' || last == '\t' || last == '\v')
                         {
                             lyricsText.text += word.Substring(0, word.Length - 2) + " ";
                             _lineBreak = true;
+                            last = word.ToCharArray()[word.Length - 2];
                         }
                         else
                         {
                             lyricsText.text += word.Substring(0, word.Length - 1) + " ";
                         }
-
-                        inputIndex++;
+                        
+                        _opponent.AddDamage((int) Char.GetNumericValue(last));
+                        
+                        _inputIndex++;
                     }
                 }
                 else
                 {
                     //innacurate note
-                    /*Debug.Log("Innacurate on " + inputIndex);
+                    /*Debug.Log("Innacurate on " + _inputIndex);
 
-                    if (inputIndex < timeStamps.Count - 1)
-                    timeStamp = timeStamps[inputIndex+1];
+                    if (_inputIndex < timeStamps.Count - 1)
+                    timeStamp = timeStamps[_inputIndex+1];
                     if (Mathf.Abs((float)(audioTime - timeStamp)) < marginOfError) {
                         //hit note
-                        Debug.Log("Hit on " + inputIndex+1);
+                        Debug.Log("Hit on " + _inputIndex+1);
                         Hit();
-                        Destroy(notes[inputIndex+1].gameObject);
-                        inputIndex+=2;
+                        Destroy(_notes[_inputIndex+1].gameObject);
+                        _inputIndex+=2;
                     }*/
                 }
             }
@@ -139,7 +143,7 @@ public class Lane : MonoBehaviour
     }
 
     bool IsPlayer() {
-        return currentPlayer.playerType == Player.PlayerType.PLAYER;
+        return _currentPlayer.playerType == Player.PlayerType.PLAYER;
     }
 
     private void Hit() {
