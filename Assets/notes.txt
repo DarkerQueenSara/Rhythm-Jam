@@ -1,0 +1,6 @@
+Lanes/Notes
+G - Round Phase Controller
+F - Lane 4
+E - Lane 3
+D - Lane 2
+C - Lane 1
