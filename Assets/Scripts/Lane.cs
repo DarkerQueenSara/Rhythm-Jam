@@ -73,7 +73,7 @@ public class Lane : MonoBehaviour
             if (timeStamp + marginOfError <= audioTime)
             {
                 Miss();
-                Debug.Log("Miss on " + _inputIndex);
+                //Debug.Log("Miss on " + _inputIndex);
                 lyricsText.text += "uh... ";
                 _inputIndex++;
                 if(_inputIndex < timeStamps.Count) {
@@ -97,7 +97,7 @@ public class Lane : MonoBehaviour
                         GetComponent<SpriteRenderer>().color = new Color(0, 0, 0);
 
                         //hit note
-                        Debug.Log("Hit on " + _inputIndex + " " + SongManager.Instance.lyrics[lyricIndex[_inputIndex]]);
+                        //Debug.Log("Hit on " + _inputIndex + " " + SongManager.Instance.lyrics[lyricIndex[_inputIndex]]);
                         Hit();
                         Destroy(_notes[_inputIndex].gameObject);
 
