@@ -8,6 +8,7 @@ public class RoundController : MonoBehaviour
     public static RoundController Instance;
     public Player[] players;
     public int currentPlayerIndex;
+    public int currentOpponentIndex;
     public enum RoundPhase {
         COMEBACK,
         ATTACK
@@ -24,6 +25,7 @@ public class RoundController : MonoBehaviour
 
         if(players.Length == 0) Debug.LogError("No players assigned");
         currentPlayerIndex = 0;
+        currentOpponentIndex = 1;
         currentRoundPhase = RoundPhase.ATTACK;
 
     }
@@ -39,6 +41,7 @@ public class RoundController : MonoBehaviour
         currentRoundPhase = (RoundPhase)nextRoundPhase;
 
         if(nextRoundPhase == 0) {
+            currentOpponentIndex = currentPlayerIndex;
             currentPlayerIndex = (currentPlayerIndex + 1) % players.Length;
             PositionPlayers();
         }
@@ -55,7 +58,11 @@ public class RoundController : MonoBehaviour
         //set players in new positions
     }
 
-    public Player GetCurrentPLayer() {
+    public Player GetCurrentPlayer() {
         return players[currentPlayerIndex];
+    }
+
+    public Player GetCurrentOpponent() {
+        return players[currentOpponentIndex];
     }
 }

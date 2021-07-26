@@ -25,10 +25,11 @@ public class Lane : MonoBehaviour
     private bool _lineBreak;
     
     private Player _currentPlayer;
-    private Player _opponent;
+    private Player _currentOpponent;
 
     void Start() {
-        _currentPlayer = RoundController.Instance.GetCurrentPLayer();
+        GameEvents.Instance.RoundPhaseOver += RoundPhaseOver;
+        UpdatePlayers();
     }
 
     public void SetTimeStamps(Melanchall.DryWetMidi.Interaction.Note[] array) {
@@ -113,7 +114,7 @@ public class Lane : MonoBehaviour
                             lyricsText.text += word.Substring(0, word.Length - 1) + " ";
                         }
                         
-                        _opponent.AddDamage((int) Char.GetNumericValue(last));
+                        _currentOpponent.AddDamage((int) Char.GetNumericValue(last));
                         
                         _inputIndex++;
                     }
@@ -153,5 +154,14 @@ public class Lane : MonoBehaviour
     private void Miss()
     {
         //ScoreManager.Miss();
+    }
+
+    void RoundPhaseOver(object sender, EventArgs eventArgs) {
+        UpdatePlayers();
+    }
+
+    void UpdatePlayers() {
+        _currentPlayer = RoundController.Instance.GetCurrentPlayer();
+        _currentOpponent = RoundController.Instance.GetCurrentOpponent();
     }
 }
