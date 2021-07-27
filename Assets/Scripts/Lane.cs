@@ -122,7 +122,6 @@ public class Lane : MonoBehaviour
 
                         //hit note
                         //Debug.Log("Hit on " + _inputIndex + " " + SongManager.Instance.lyrics[lyricIndex[_inputIndex]]);
-                        Hit();
                         Destroy(_notes[_inputIndex].gameObject);
 
                         String word = SongManager.Instance.lyrics[lyricIndex[_inputIndex]];
@@ -138,7 +137,7 @@ public class Lane : MonoBehaviour
                             lyricsText.text += word.Substring(0, word.Length - 1) + " ";
                         }
 
-                        _currentOpponent.AddDamage((int) Char.GetNumericValue(last));
+                        Hit((int) Char.GetNumericValue(last));
 
                         _inputIndex++;
                     }
@@ -172,8 +171,15 @@ public class Lane : MonoBehaviour
         return _currentPlayer.playerType == Player.PlayerType.PLAYER;
     }
 
-    private void Hit()
+    private void Hit(int hitPointAmount)
     {
+        if(RoundController.Instance.currentRoundPhase == RoundController.RoundPhase.COMEBACK) {
+            _currentPlayer.RestoreHealth(hitPointAmount);
+        } else if (RoundController.Instance.currentRoundPhase == RoundController.RoundPhase.ATTACK) {
+            _currentOpponent.AddDamage(hitPointAmount);
+        }
+        
+
         ScoreManager.Hit();
     }
 
