@@ -12,6 +12,10 @@ public class RoundController : MonoBehaviour
     public int currentOpponentIndex;
     public TextMeshPro phaseText;
 
+    [Header("End Round Screens")]
+    public GameObject victoryScreen;
+    public GameObject defeatScreen;
+
     public enum RoundPhase
     {
         COMEBACK,
@@ -31,6 +35,8 @@ public class RoundController : MonoBehaviour
     void Start()
     {
         GameEvents.Instance.RoundPhaseOver += RoundPhaseOver;
+        GameEvents.Instance.PlayerDied += PlayerDied;
+        GameEvents.Instance.RoundOver += RoundOver;
 
         if (players.Length == 0) Debug.LogError("No players assigned");
         currentPlayerIndex = 0;
@@ -79,5 +85,27 @@ public class RoundController : MonoBehaviour
     public Player GetCurrentOpponent()
     {
         return players[currentOpponentIndex];
+    }
+
+    void PlayerDied(object sender, PlayerDiedArgs eventArgs) {
+        RoundOverArgs args = new RoundOverArgs();
+        if(eventArgs.player == GetCurrentPlayer()) {
+            args.winner = GetCurrentOpponent();
+        } else {
+            args.winner = GetCurrentPlayer();
+        }
+        GameEvents.Instance.OnRoundOver(args);
+    }
+
+    void RoundOver(object sender, RoundOverArgs eventArgs) {
+        Debug.Log("Game Over");
+        if(eventArgs.winner.playerType == Player.PlayerType.PLAYER) {
+            // win
+            victoryScreen.SetActive(true);
+        } else {
+            // lose
+            defeatScreen.SetActive(true);
+        }
+        SongManager.Instance.StopSong();
     }
 }

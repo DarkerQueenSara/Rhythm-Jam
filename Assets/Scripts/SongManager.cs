@@ -102,4 +102,11 @@ public class SongManager : MonoBehaviour
     {
         return (double) Instance.audioSource.timeSamples / Instance.audioSource.clip.frequency;
     }
+
+    public void StopSong() {
+        audioSource.Pause();
+        foreach(var lane in lanes) {
+            lane.StopLane();
+        }
+    }
 }

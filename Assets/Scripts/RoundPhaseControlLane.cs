@@ -20,9 +20,28 @@ public class RoundPhaseControlLane : Lane
                                (SongManager.Instance.inputDelayInMilliseconds / 1000.0);
 
             if(timeStamp <= audioTime) {
-                //trigger phase change
-                GameEvents.Instance.OnRoundPhaseOver(EventArgs.Empty);
-                controlIndex++;
+
+                if(controlIndex == timeStamps.Count - 1) {
+                    //trigger round over
+                    RoundOverArgs args = new RoundOverArgs();
+                    Player currentPlayer = RoundController.Instance.GetCurrentPlayer();
+                    Player currentOpponent = RoundController.Instance.GetCurrentOpponent();
+                    if(currentPlayer.currentHealth > currentOpponent.currentHealth) {
+                        Debug.Log("current player has more health");
+                        args.winner = currentPlayer;
+                    } else if(currentPlayer.currentHealth == currentOpponent.currentHealth) {
+                        args.winner = currentPlayer.playerType == Player.PlayerType.PLAYER? currentPlayer: currentOpponent;
+                    } else {
+                        Debug.Log("current opponent has more health");
+                        args.winner = currentOpponent;
+                    }
+                    GameEvents.Instance.OnRoundOver(args);
+                    controlIndex++;
+                } else {
+                    //trigger phase change
+                    GameEvents.Instance.OnRoundPhaseOver(EventArgs.Empty);
+                    controlIndex++;
+                }
             }
         }
     }
