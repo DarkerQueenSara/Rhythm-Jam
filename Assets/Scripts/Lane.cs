@@ -174,12 +174,12 @@ public class Lane : MonoBehaviour
 
     private void Hit()
     {
-        ScoreManager.Hit();
+        ScoreManager.Instance.Hit();
     }
 
     private void Miss()
     {
-        //ScoreManager.Miss();
+        ScoreManager.Instance.Miss();
     }
 
     void RoundPhaseOver(object sender, EventArgs eventArgs)

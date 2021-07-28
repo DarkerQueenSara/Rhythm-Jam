@@ -10,7 +10,9 @@ using System;
 
 public class SongManager : MonoBehaviour
 {
-    public static SongManager Instance;
+    #region SingleTon
+
+    public static SongManager Instance { get; private set; }
     public AudioSource audioSource;
     public Lane[] lanes;
     public float songDelayInSeconds;
@@ -23,35 +25,48 @@ public class SongManager : MonoBehaviour
     public float noteTime;
     public float noteSpawnY;
     public float noteTapY;
-
-    public float noteDespawnY {
-        get {
-            return noteTapY - (noteSpawnY - noteTapY);
-        }
-    }
-
     public string[] lyrics;
 
     public static MidiFile midiFile;
 
-    void Start() {
-        Instance = this;
-        if (Application.streamingAssetsPath.StartsWith("http://") || Application.streamingAssetsPath.StartsWith("https://")) {
+    public float NoteDespawnY => noteTapY - (noteSpawnY - noteTapY);
+    
+    private void Awake()
+    {
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
+    }
+
+    #endregion
+
+    private void Start()
+    {
+        if (Application.streamingAssetsPath.StartsWith("http://") ||
+            Application.streamingAssetsPath.StartsWith("https://"))
+        {
             StartCoroutine(ReadFromWebsite());
-        } else {
+        }
+        else
+        {
             ReadFromFile();
         }
     }
 
-    private IEnumerator ReadFromWebsite() {
-        using (UnityWebRequest www = UnityWebRequest.Get(Application.streamingAssetsPath + "/" + midiFileLocation)) {
+    private IEnumerator ReadFromWebsite()
+    {
+        using (UnityWebRequest www = UnityWebRequest.Get(Application.streamingAssetsPath + "/" + midiFileLocation))
+        {
             yield return www.SendWebRequest();
 
-            if (www.isNetworkError || www.isHttpError) {
+            if (www.isNetworkError || www.isHttpError)
+            {
                 Debug.LogError(www.error);
-            } else {
+            }
+            else
+            {
                 byte[] results = www.downloadHandler.data;
-                using (var stream = new MemoryStream(results)) {
+                using (var stream = new MemoryStream(results))
+                {
                     midiFile = MidiFile.Read(stream);
                     GetDataFromMidi();
                 }
@@ -59,14 +74,16 @@ public class SongManager : MonoBehaviour
         }
     }
 
-    private void ReadFromFile() {
+    private void ReadFromFile()
+    {
         Debug.Log("reading from file");
         midiFile = MidiFile.Read(Application.streamingAssetsPath + "/" + midiFileLocation);
         Debug.Log(midiFile);
         GetDataFromMidi();
     }
 
-    public void GetDataFromMidi() {
+    public void GetDataFromMidi()
+    {
         var notes = midiFile.GetNotes();
         var array = new Melanchall.DryWetMidi.Interaction.Note[notes.Count];
         notes.CopyTo(array, 0);
@@ -76,11 +93,13 @@ public class SongManager : MonoBehaviour
         Invoke(nameof(StartSong), songDelayInSeconds);
     }
 
-    public void StartSong() {
+    public void StartSong()
+    {
         audioSource.Play();
     }
-    public static double GetAudioSourceTime() {
-        return (double)Instance.audioSource.timeSamples / Instance.audioSource.clip.frequency;
-    }
 
+    public static double GetAudioSourceTime()
+    {
+        return (double) Instance.audioSource.timeSamples / Instance.audioSource.clip.frequency;
+    }
 }

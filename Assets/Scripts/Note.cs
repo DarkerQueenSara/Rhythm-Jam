@@ -25,7 +25,7 @@ public class Note : MonoBehaviour
             Destroy(gameObject);
         } else
         {
-            _rectTransform.localPosition = Vector3.Lerp(Vector3.up * SongManager.Instance.noteSpawnY, Vector3.up * SongManager.Instance.noteDespawnY, t);
+            _rectTransform.localPosition = Vector3.Lerp(Vector3.up * SongManager.Instance.noteSpawnY, Vector3.up * SongManager.Instance.NoteDespawnY, t);
             //_rectTransform.localPosition = new Vector3(0, 110, 0);
             //transform.position = new Vector3(transform.parent.position.x, transform.position.y, transform.position.z);
             //GetComponent<SpriteRenderer>().enabled = true;
