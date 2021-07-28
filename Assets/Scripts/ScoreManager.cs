@@ -13,6 +13,10 @@ public class ScoreManager : MonoBehaviour
     [Header("UI")] public TextMeshPro scoreText;
     public TextMeshPro multiplierText;
     public Image multiplierBar;
+    public TextMeshPro notesHitText;
+    public TextMeshPro longestStreakText;
+    public TextMeshPro perfectNotesHitText;
+    public TextMeshPro perfectLongestStreakText;
 
     [Header("Score Values")] public int scorePerFineNote = 10;
     public int scorePerGoodNote = 20;
@@ -24,8 +28,11 @@ public class ScoreManager : MonoBehaviour
     private int _score;
     private int _scoreMultiplier = 1;
     private int _currentStreak;
+    private int _currentPerfectStreak;
     private int _maxStreak;
+    private int _maxPerfectStreak;
     private int _notesHit;
+    private int _perfectNotesHit;
     private int _totalNotes;
 
 
@@ -79,5 +86,15 @@ public class ScoreManager : MonoBehaviour
     {
         scoreText.text = _score.ToString();
         multiplierText.text = _scoreMultiplier + "X";
+    }
+
+    public void SetVictoryText()
+    {
+        notesHitText.text = "Notes Hit: " + _notesHit + "/" + _totalNotes + " (" +
+                            Mathf.FloorToInt((float) _notesHit / _totalNotes) + "%)";
+        longestStreakText.text = "Longest Streak: " + _maxStreak + " notes";
+        perfectNotesHitText.text = "Notes Hit: " + _perfectNotesHit + "/" + _totalNotes + " (" +
+                                   Mathf.FloorToInt((float) _perfectNotesHit / _totalNotes) + "%)";
+        perfectLongestStreakText.text = "Longest Streak: " + _maxPerfectStreak + " notes";
     }
 }
