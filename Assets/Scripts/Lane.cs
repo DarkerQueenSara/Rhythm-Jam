@@ -1,6 +1,5 @@
 using System;
 using Melanchall.DryWetMidi.Interaction;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -13,8 +12,6 @@ public class Lane : MonoBehaviour
 
     public GameObject notePrefab;
 
-    //public GameObject wordPrefab;
-    //private GameObject currentWord = null;
     private List<Note> _notes = new List<Note>();
     public List<double> timeStamps = new List<double>();
     public List<int> lyricIndex = new List<int>();
@@ -23,15 +20,15 @@ public class Lane : MonoBehaviour
     private int _inputIndex = 0;
 
     public TextMeshPro lyricsText;
+    private Image _image;
+
     private bool _lineBreak;
     private bool _generatedLists;
-    
 
-    private Image _image;
     private Player _currentPlayer;
     private Player _currentOpponent;
 
-    void Start()
+    private void Start()
     {
         GameEvents.Instance.RoundPhaseOver += RoundPhaseOver;
         _image = GetComponent<Image>();
@@ -56,13 +53,16 @@ public class Lane : MonoBehaviour
 
             index++;
         }
+
         _generatedLists = true;
         Debug.Log(gameObject.name + " generated " + timeStamps.Count + " timestamps and " + lyricIndex.Count +
                   " lyrics");
     }
 
-    void Update()
+    private void Update()
     {
+        string[] lyrics = SongManager.Instance.lyrics;
+
         if (_spawnIndex < timeStamps.Count)
         {
             if (SongManager.GetAudioSourceTime() >= timeStamps[_spawnIndex] - SongManager.Instance.noteTime)
@@ -87,7 +87,7 @@ public class Lane : MonoBehaviour
                 lyricsText.text = "";
                 _lineBreak = false;
             }
-            
+
             if (timeStamp + marginOfError <= audioTime)
             {
                 Miss();
@@ -98,12 +98,16 @@ public class Lane : MonoBehaviour
                 {
                     timeStamp = timeStamps[_inputIndex];
                 }
-                String w = SongManager.Instance.lyrics[lyricIndex[_inputIndex]];
-                char l = w.ToCharArray()[w.Length - 1];
-                if (l == '\r' || l == '\n' || l == '\t' || l == '\v') _lineBreak = true;
+
+                if (_generatedLists && _inputIndex < lyricIndex.Count && lyricIndex[_inputIndex] < lyrics.Length)
+                {
+                    String w = lyrics[lyricIndex[_inputIndex]];
+                    char l = w.ToCharArray()[w.Length - 1];
+                    if (l == '\r' || l == '\n' || l == '\t' || l == '\v') _lineBreak = true;
+                }
             }
 
-            if ((IsPlayer() && Input.GetKeyDown(input)) || !IsPlayer())
+            if (IsPlayer() && Input.GetKeyDown(input) || !IsPlayer())
             {
                 /*if (_lineBreak)
                 {
@@ -124,22 +128,26 @@ public class Lane : MonoBehaviour
                         //Debug.Log("Hit on " + _inputIndex + " " + SongManager.Instance.lyrics[lyricIndex[_inputIndex]]);
                         Destroy(_notes[_inputIndex].gameObject);
 
-                        String word = SongManager.Instance.lyrics[lyricIndex[_inputIndex]];
-                        char last = word.ToCharArray()[word.Length - 1];
-                        if (last == '\r' || last == '\n' || last == '\t' || last == '\v')
+                        if (_generatedLists && _inputIndex < lyricIndex.Count &&
+                            lyricIndex[_inputIndex] < lyrics.Length)
                         {
-                            lyricsText.text += word.Substring(0, word.Length - 2) + " ";
-                            _lineBreak = true;
-                            last = word.ToCharArray()[word.Length - 2];
-                        }
-                        else
-                        {
-                            lyricsText.text += word.Substring(0, word.Length - 1) + " ";
-                        }
+                            String word = lyrics[lyricIndex[_inputIndex]];
+                            char last = word.ToCharArray()[word.Length - 1];
+                            if (last == '\r' || last == '\n' || last == '\t' || last == '\v')
+                            {
+                                lyricsText.text += word.Substring(0, word.Length - 2) + " ";
+                                _lineBreak = true;
+                                last = word.ToCharArray()[word.Length - 2];
+                            }
+                            else
+                            {
+                                lyricsText.text += word.Substring(0, word.Length - 1) + " ";
+                            }
 
-                        Hit((int) Char.GetNumericValue(last));
+                            Hit((int) Char.GetNumericValue(last));
 
-                        _inputIndex++;
+                            _inputIndex++;
+                        }
                     }
                 }
                 else
@@ -166,18 +174,22 @@ public class Lane : MonoBehaviour
         }
     }
 
-    bool IsPlayer()
+    private bool IsPlayer()
     {
         return _currentPlayer.playerType == Player.PlayerType.PLAYER;
     }
 
     private void Hit(int hitPointAmount)
     {
-        if(RoundController.Instance.currentRoundPhase == RoundController.RoundPhase.COMEBACK) {
+        if (RoundController.Instance.currentRoundPhase == RoundController.RoundPhase.COMEBACK)
+        {
             _currentPlayer.RestoreHealth(hitPointAmount);
-        } else if (RoundController.Instance.currentRoundPhase == RoundController.RoundPhase.ATTACK) {
+        }
+        else if (RoundController.Instance.currentRoundPhase == RoundController.RoundPhase.ATTACK)
+        {
             _currentOpponent.AddDamage(hitPointAmount);
         }
+
         ScoreManager.Instance.Hit();
     }
 
@@ -186,12 +198,12 @@ public class Lane : MonoBehaviour
         ScoreManager.Instance.Miss();
     }
 
-    void RoundPhaseOver(object sender, EventArgs eventArgs)
+    private void RoundPhaseOver(object sender, EventArgs eventArgs)
     {
         UpdatePlayers();
     }
 
-    void UpdatePlayers()
+    private void UpdatePlayers()
     {
         _currentPlayer = RoundController.Instance.GetCurrentPlayer();
         _currentOpponent = RoundController.Instance.GetCurrentOpponent();

@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
+using TMPro;
 
 public class RoundController : MonoBehaviour
 {
@@ -11,6 +10,7 @@ public class RoundController : MonoBehaviour
     public Player[] players;
     public int currentPlayerIndex;
     public int currentOpponentIndex;
+    public TextMeshPro phaseText;
 
     public enum RoundPhase
     {
@@ -36,6 +36,7 @@ public class RoundController : MonoBehaviour
         currentPlayerIndex = 0;
         currentOpponentIndex = 1;
         currentRoundPhase = RoundPhase.ATTACK;
+        phaseText.text = currentRoundPhase.ToString();
     }
 
     public void RoundPhaseOver(object sender, EventArgs eventArgs)
@@ -48,7 +49,8 @@ public class RoundController : MonoBehaviour
         int nextRoundPhase = (int) currentRoundPhase + 1;
         nextRoundPhase = nextRoundPhase % (Enum.GetValues(typeof(RoundPhase)).GetUpperBound(0) + 1);
         currentRoundPhase = (RoundPhase) nextRoundPhase;
-
+        phaseText.text = currentRoundPhase.ToString();
+        
         if (nextRoundPhase == 0)
         {
             currentOpponentIndex = currentPlayerIndex;
