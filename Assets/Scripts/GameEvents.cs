@@ -17,9 +17,9 @@ public class GameEvents : MonoBehaviour
         handler?.Invoke(this, args);
     }
 
-    public event EventHandler RoundOver;
-    public virtual void OnRoundOver(EventArgs args) {
-        EventHandler handler = RoundOver;
+    public event EventHandler<RoundOverArgs> RoundOver;
+    public virtual void OnRoundOver(RoundOverArgs args) {
+        EventHandler<RoundOverArgs> handler = RoundOver;
         handler?.Invoke(this, args);
     }
 
@@ -28,6 +28,11 @@ public class GameEvents : MonoBehaviour
         EventHandler<PlayerDiedArgs> handler = PlayerDied;
         handler?.Invoke(this, args);
     }
+}
+
+public class RoundOverArgs : EventArgs
+{
+    public Player winner { get; set; }
 }
 
 public class PlayerDiedArgs : EventArgs
