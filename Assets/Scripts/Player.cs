@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        GameEvents.Instance.RoundPhaseOver += RoundPhaseOver;
         currentHealth = maxHealth;
     }
 
@@ -57,6 +58,10 @@ public class Player : MonoBehaviour
         healthToRemove = 0;
         //se calhar tenho que usar lerp
         backHealthBar.fillAmount = frontHealthBar.fillAmount;
+
+        if(currentHealth <= 0) {
+            Die();
+        }
     }
 
     public void RestoreHealth(int health)
@@ -91,5 +96,20 @@ public class Player : MonoBehaviour
             AIMissPenaltyEndTime = Time.time + AIMissPenalty;
             return false;
         }
+    }
+
+    void RoundPhaseOver(object sender, EventArgs eventArgs) {
+        if (RoundController.Instance.GetCurrentOpponent() == this && RoundController.Instance.currentRoundPhase == RoundController.RoundPhase.ATTACK) {
+            DealDamage();
+        }/* else if(RoundController.Instance.GetCurrentPlayer() == this && RoundController.Instance.currentRoundPhase == RoundController.RoundPhase.COMEBACK) {
+            FinishHeal();
+        }*/
+    }
+
+    void Die() {
+        PlayerDiedArgs args = new PlayerDiedArgs();
+        args.player = this;
+
+        GameEvents.Instance.OnPlayerDied(args);
     }
 }

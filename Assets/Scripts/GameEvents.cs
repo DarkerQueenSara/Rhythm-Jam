@@ -22,4 +22,15 @@ public class GameEvents : MonoBehaviour
         EventHandler handler = RoundOver;
         handler?.Invoke(this, args);
     }
+
+    public event EventHandler<PlayerDiedArgs> PlayerDied;
+    public virtual void OnPlayerDied(PlayerDiedArgs args) {
+        EventHandler<PlayerDiedArgs> handler = PlayerDied;
+        handler?.Invoke(this, args);
+    }
+}
+
+public class PlayerDiedArgs : EventArgs
+{
+    public Player player { get; set; }
 }

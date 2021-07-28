@@ -1245,6 +1245,101 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 950001071}
   m_CullTransparentMesh: 1
+--- !u!1 &1012538052
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1012538053}
+  - component: {fileID: 1012538056}
+  - component: {fileID: 1012538055}
+  - component: {fileID: 1012538054}
+  m_Layer: 0
+  m_Name: Control Lane
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1012538053
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012538052}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1395892259}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 305, y: -175}
+  m_SizeDelta: {x: 20, y: 20}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1012538054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012538052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 7482667652216324306, guid: 90ab7f9723ef3ce4a9590073b6a081e4, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1012538055
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012538052}
+  m_CullTransparentMesh: 1
+--- !u!114 &1012538056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012538052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8c65efe65624f74caeaf576a153762e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  noteRestriction: 7
+  input: 0
+  notePrefab: {fileID: 0}
+  timeStamps: []
+  lyricIndex: 
+  lyricsText: {fileID: 0}
+  controlIndex: 0
 --- !u!1 &1022559057
 GameObject:
   m_ObjectHideFlags: 0
@@ -1796,6 +1891,7 @@ Transform:
   - {fileID: 363957177}
   - {fileID: 1821803330}
   - {fileID: 1961124325}
+  - {fileID: 1012538053}
   m_Father: {fileID: 346092675}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2428,7 +2524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11a1082a02d53e34aa0f466351e04c5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noteRestriction: 4
+  noteRestriction: 0
   input: 113
   notePrefab: {fileID: 984049130662714434, guid: d17c49e2ac4a7e9418c0c5485b253b7d, type: 3}
   timeStamps: []
@@ -2557,7 +2653,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d19e2f9966a07c74ca5412d07412ac18, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 68d715911c26d1c4cbb06ce0632e8e95, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -2880,80 +2976,57 @@ MonoBehaviour:
   - {fileID: 363957181}
   - {fileID: 1821803333}
   - {fileID: 1961124328}
+  - {fileID: 1012538056}
   songDelayInSeconds: 0
   marginOfError: 0.07
   inputDelayInMilliseconds: 0
-  midiFileLocation: forever.mid
-  lyricFile: {fileID: 4900000, guid: 52ae4e8c4911317448be7b723b62adce, type: 3}
+  midiFileLocation: supa.mid
+  lyricFile: {fileID: 4900000, guid: 9d1e5cfe4601f074d931fca7f4060047, type: 3}
   noteTime: 1
   noteSpawnY: 110
-  noteTapY: -40
+  noteTapY: 0
   lyrics:
-  - It1
-  - may1
-  - not1
-  - mean1
-  - nothing1
-  - to1
-  - "y'all1\r"
-  - But1
-  - understand1
-  - nothing1
-  - was1
-  - done1
-  - for1
-  - "me1\r"
-  - So1
-  - I1
-  - don't1
-  - plan1
-  - on1
-  - stopping1
-  - at1
-  - "all1\r"
-  - I1
-  - want1
-  - this1
-  - shit1
-  - forever1
-  - mayne,1
-  - ever1
-  - mayne,1
-  - ever1
-  - "mayne1\r"
-  - I'm1
-  - shutting1
-  - shit1
-  - down1
-  - in1
-  - the1
-  - "mall1\r"
-  - And1
-  - telling1
-  - every1
-  - girl1
-  - she1
-  - the1
-  - one1
-  - for1
-  - "me1\r"
-  - And1
-  - I1
-  - ain't1
-  - even1
-  - planning1
-  - to1
-  - "call1\r"
-  - I1
-  - want1
-  - this1
-  - shit1
-  - forever1
-  - mayne,1
-  - ever1
-  - mayne,1
-  - ever1
-  - mayne1
+  - I1,
+  - broke1
+  - up1
+  - with
+  - my
+  - ex
+  - "girl\r"
+  - Here's2
+  - her2
+  - "number2\r"
+  - <b>SIKE</b>9,
+  - that's2
+  - the2
+  - wrong2
+  - num0
+  - ber9
+  - Sweet2
+  - dol2
+  - la2
+  - tea2
+  - from2
+  - Mc2
+  - Donalds,2
+  - I2
+  - drink2
+  - "that2\r"
+  - Su2
+  - per2
+  - Hot2
+  - Fire,2
+  - I2
+  - spit2
+  - "that2\r"
+  - Two2
+  - and2
+  - a2
+  - Half2
+  - Men,2
+  - I2
+  - watched2
+  - that2
 --- !u!1 &3978996287959070145
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,6 +9,10 @@ public class RoundPhaseControlLane : Lane
     [Header("Control Settings")]
     public int controlIndex;
 
+    void Start() {
+        /*Empty, needs to be here to override Lane Start*/
+    }
+
     void Update() {
         if(controlIndex < timeStamps.Count) {
             double timeStamp = timeStamps[controlIndex];
