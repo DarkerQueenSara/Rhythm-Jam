@@ -3247,6 +3247,14 @@ MonoBehaviour:
   phaseText: {fileID: 767126658}
   victoryScreen: {fileID: 693418425}
   defeatScreen: {fileID: 1305400560}
+  toDisableOnEnd:
+  - {fileID: 654387948}
+  - {fileID: 767126656}
+  - {fileID: 1395892258}
+  - {fileID: 1395892258}
+  - {fileID: 382440379}
+  - {fileID: 2243845638975804477}
+  - {fileID: 1201264595}
   currentRoundPhase: 0
 --- !u!114 &1022559059
 MonoBehaviour:
@@ -6574,6 +6582,10 @@ MonoBehaviour:
   scorePerPerfectNote: 40
   notesToIncreaseMultiplier: 10
   multiplierIncrease: 2
+  fineTiming: 0.1
+  goodTiming: 0.075
+  greatTiming: 0.05
+  perfectTiming: 0.025
 --- !u!4 &8049147978286385299
 Transform:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections.Generic;
 using TMPro;
 
 public class RoundController : MonoBehaviour
@@ -12,9 +13,9 @@ public class RoundController : MonoBehaviour
     public int currentOpponentIndex;
     public TextMeshPro phaseText;
 
-    [Header("End Round Screens")]
-    public GameObject victoryScreen;
+    [Header("End Round Screens")] public GameObject victoryScreen;
     public GameObject defeatScreen;
+    public List<GameObject> toDisableOnEnd;
 
     public enum RoundPhase
     {
@@ -56,7 +57,7 @@ public class RoundController : MonoBehaviour
         nextRoundPhase = nextRoundPhase % (Enum.GetValues(typeof(RoundPhase)).GetUpperBound(0) + 1);
         currentRoundPhase = (RoundPhase) nextRoundPhase;
         phaseText.text = currentRoundPhase.ToString();
-        
+
         if (nextRoundPhase == 0)
         {
             currentOpponentIndex = currentPlayerIndex;
@@ -87,26 +88,40 @@ public class RoundController : MonoBehaviour
         return players[currentOpponentIndex];
     }
 
-    void PlayerDied(object sender, PlayerDiedArgs eventArgs) {
+    void PlayerDied(object sender, PlayerDiedArgs eventArgs)
+    {
         RoundOverArgs args = new RoundOverArgs();
-        if(eventArgs.player == GetCurrentPlayer()) {
+        if (eventArgs.player == GetCurrentPlayer())
+        {
             args.winner = GetCurrentOpponent();
-        } else {
+        }
+        else
+        {
             args.winner = GetCurrentPlayer();
         }
+
         GameEvents.Instance.OnRoundOver(args);
     }
 
-    void RoundOver(object sender, RoundOverArgs eventArgs) {
+    void RoundOver(object sender, RoundOverArgs eventArgs)
+    {
         Debug.Log("Game Over");
-        if(eventArgs.winner.playerType == Player.PlayerType.PLAYER) {
+        SongManager.Instance.StopSong();
+        ScoreManager.Instance.SetVictoryText();
+        foreach (GameObject x in toDisableOnEnd)
+        {
+            x.SetActive(false);
+        }
+
+        if (eventArgs.winner.playerType == Player.PlayerType.PLAYER)
+        {
             // win
             victoryScreen.SetActive(true);
-        } else {
+        }
+        else
+        {
             // lose
             defeatScreen.SetActive(true);
         }
-        SongManager.Instance.StopSong();
-        ScoreManager.Instance.SetVictoryText();
     }
 }
