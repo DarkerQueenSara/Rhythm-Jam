@@ -25,6 +25,11 @@ public class ScoreManager : MonoBehaviour
     public int notesToIncreaseMultiplier = 10;
     public int multiplierIncrease = 2;
 
+    [Header("Timing Values")] public float fineTiming = 0.1f;
+    public float goodTiming = 0.075f;
+    public float greatTiming = 0.05f;
+    public float perfectTiming = 0.025f;
+    
     private int _score;
     private int _scoreMultiplier = 1;
     private int _currentStreak;
@@ -53,14 +58,11 @@ public class ScoreManager : MonoBehaviour
         UpdateText();
     }
 
-    //TODO meter aqui a passar que tipo de hit
-    public void Hit()
+    public void Hit(int type)
     {
         _notesHit++;
         _totalNotes++;
-        _score += scorePerFineNote;
-        _currentStreak++;
-        if (_currentStreak > _maxStreak) _maxStreak = _currentStreak;
+
         multiplierBar.fillAmount += 1.0f / notesToIncreaseMultiplier;
         if (_currentStreak % notesToIncreaseMultiplier == 0)
         {
@@ -68,6 +70,31 @@ public class ScoreManager : MonoBehaviour
             multiplierBar.fillAmount = 0;
         }
 
+        if (type == 0)
+        {
+            _score += scorePerFineNote * _scoreMultiplier;
+            _currentPerfectStreak = 0;
+        }
+        else if (type == 1)
+        {
+            _score += scorePerGoodNote * _scoreMultiplier;
+            _currentPerfectStreak = 0;
+        }
+        else if (type == 2)
+        {
+            _score += scorePerGreatNote * _scoreMultiplier;
+            _currentPerfectStreak = 0;
+        }
+        else if (type == 3)
+        {
+            _score += scorePerPerfectNote * _scoreMultiplier;
+            _currentPerfectStreak++;
+            if (_currentPerfectStreak > _maxPerfectStreak) _maxPerfectStreak = _currentPerfectStreak;
+        }
+
+        _currentStreak++;
+        if (_currentStreak > _maxStreak) _maxStreak = _currentStreak;
+        
         UpdateText();
         Instance.hitSFX.Play();
     }
@@ -91,10 +118,10 @@ public class ScoreManager : MonoBehaviour
     public void SetVictoryText()
     {
         notesHitText.text = "Notes Hit: " + _notesHit + "/" + _totalNotes + " (" +
-                            Mathf.FloorToInt((float) _notesHit / _totalNotes) + "%)";
+                            Mathf.FloorToInt((float) _notesHit / _totalNotes) * 100 + "%)";
         longestStreakText.text = "Longest Streak: " + _maxStreak + " notes";
-        perfectNotesHitText.text = "Notes Hit: " + _perfectNotesHit + "/" + _totalNotes + " (" +
-                                   Mathf.FloorToInt((float) _perfectNotesHit / _totalNotes) + "%)";
-        perfectLongestStreakText.text = "Longest Streak: " + _maxPerfectStreak + " notes";
+        perfectNotesHitText.text = "Perfect Notes Hit: " + _perfectNotesHit + "/" + _totalNotes + " (" +
+                                   Mathf.FloorToInt((float) _perfectNotesHit / _totalNotes) * 100 + "%)";
+        perfectLongestStreakText.text = "Longest Perfect Streak: " + _maxPerfectStreak + " notes";
     }
 }

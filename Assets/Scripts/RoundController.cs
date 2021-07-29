@@ -107,5 +107,6 @@ public class RoundController : MonoBehaviour
             defeatScreen.SetActive(true);
         }
         SongManager.Instance.StopSong();
+        ScoreManager.Instance.SetVictoryText();
     }
 }

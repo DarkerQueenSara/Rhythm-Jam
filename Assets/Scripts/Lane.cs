@@ -21,14 +21,15 @@ public class Lane : MonoBehaviour
 
     public TextMeshPro lyricsText;
     private Image _image;
-
-    private bool _lineBreak;
+    
     private bool _generatedLists;
-
+    private bool _lineBreak;
+    private bool _stop;
+    private int _lastHitType;
+    
     private Player _currentPlayer;
     private Player _currentOpponent;
 
-    private bool stop;
 
     private void Start()
     {
@@ -36,7 +37,7 @@ public class Lane : MonoBehaviour
         _image = GetComponent<Image>();
         UpdatePlayers();
         lyricsText.text = "";
-        stop = false;
+        _stop = false;
     }
 
     public void SetTimeStamps(Melanchall.DryWetMidi.Interaction.Note[] array)
@@ -64,7 +65,7 @@ public class Lane : MonoBehaviour
 
     private void Update()
     {
-        if(!stop) {
+        if(!_stop) {
             string[] lyrics = SongManager.Instance.lyrics;
 
             if (_spawnIndex < timeStamps.Count)
@@ -82,7 +83,7 @@ public class Lane : MonoBehaviour
             if (_inputIndex < timeStamps.Count)
             {
                 double timeStamp = timeStamps[_inputIndex];
-                double marginOfError = SongManager.Instance.marginOfError;
+                //double marginOfError = SongManager.Instance.marginOfError;
                 double audioTime = SongManager.GetAudioSourceTime() -
                                 (SongManager.Instance.inputDelayInMilliseconds / 1000.0);
 
@@ -92,7 +93,7 @@ public class Lane : MonoBehaviour
                     _lineBreak = false;
                 }
 
-                if (timeStamp + marginOfError <= audioTime)
+                if (timeStamp + ScoreManager.Instance.fineTiming < audioTime)
                 {
                     Miss();
                     //Debug.Log("Miss on " + _inputIndex);
@@ -113,16 +114,11 @@ public class Lane : MonoBehaviour
 
                 if (IsPlayer() && Input.GetKeyDown(input) || !IsPlayer())
                 {
-                    /*if (_lineBreak)
-                    {
-                        lyricsText.text = "";
-                        _lineBreak = false;
-                    }*/
-
+                    
                     if (IsPlayer())
                         _image.color = new Color(0, 0, 0);
 
-                    if (Mathf.Abs((float) (audioTime - timeStamp)) < marginOfError)
+                    if (CheckHit(audioTime, timeStamp))
                     {
                         if (IsPlayer() || (!IsPlayer() && _currentPlayer.AIHit()))
                         {
@@ -154,21 +150,6 @@ public class Lane : MonoBehaviour
                             }
                         }
                     }
-                    else
-                    {
-                        //innacurate note
-                        /*Debug.Log("Innacurate on " + _inputIndex);
-
-                        if (_inputIndex < timeStamps.Count - 1)
-                        timeStamp = timeStamps[_inputIndex+1];
-                        if (Mathf.Abs((float)(audioTime - timeStamp)) < marginOfError) {
-                            //hit note
-                            Debug.Log("Hit on " + _inputIndex+1);
-                            Hit();
-                            Destroy(_notes[_inputIndex+1].gameObject);
-                            _inputIndex+=2;
-                        }*/
-                    }
                 }
             }
 
@@ -184,6 +165,31 @@ public class Lane : MonoBehaviour
         return _currentPlayer.playerType == Player.PlayerType.PLAYER;
     }
 
+    private bool CheckHit(double audioTime, double timeStamp)
+    {
+        if (Mathf.Abs((float) (audioTime - timeStamp)) <= ScoreManager.Instance.perfectTiming)
+        {
+            _lastHitType = 3;
+            return true;
+        }
+        if (Mathf.Abs((float) (audioTime - timeStamp)) <= ScoreManager.Instance.greatTiming)
+        {
+            _lastHitType = 2;
+            return true;
+        }
+        if (Mathf.Abs((float) (audioTime - timeStamp)) <= ScoreManager.Instance.goodTiming)
+        {
+            _lastHitType = 1;
+            return true;
+        }
+        if (Mathf.Abs((float) (audioTime - timeStamp)) <= ScoreManager.Instance.fineTiming)
+        {
+            _lastHitType = 0;
+            return true;
+        }
+        return false;
+    }
+    
     private void Hit(int hitPointAmount)
     {
         if (RoundController.Instance.currentRoundPhase == RoundController.RoundPhase.COMEBACK)
@@ -195,7 +201,7 @@ public class Lane : MonoBehaviour
             _currentOpponent.AddDamage(hitPointAmount);
         }
 
-        ScoreManager.Instance.Hit();
+        ScoreManager.Instance.Hit(_lastHitType);
     }
 
     private void Miss()
@@ -215,7 +221,7 @@ public class Lane : MonoBehaviour
     }
 
     public void StopLane() {
-        stop = true;
+        _stop = true;
 
         foreach(var note in _notes) {
             note.StopNote();
