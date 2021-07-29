@@ -19,7 +19,7 @@ public class Lane : MonoBehaviour
     private int _spawnIndex = 0;
     private int _inputIndex = 0;
 
-    public TextMeshPro lyricsText;
+    public TextMeshProUGUI lyricsText;
     private Image _image;
     
     private bool _generatedLists;

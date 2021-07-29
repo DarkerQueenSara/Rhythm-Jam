@@ -21,7 +21,6 @@ public class Player : MonoBehaviour
 
     [Header("AI Options")] [Range(0.0f, 1.0f)]
     public float AIMissChance;
-
     public float AIMissPenalty;
 
     [Header("Sprites")] public Sprite frontSprite;

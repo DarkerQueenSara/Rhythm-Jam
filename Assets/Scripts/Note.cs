@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class Note : MonoBehaviour
 {
     private double _timeInstantiated;
-    public float assignedTime;
+    [HideInInspector] public float assignedTime;
 
     private RectTransform _rectTransform;
     private Image _image;

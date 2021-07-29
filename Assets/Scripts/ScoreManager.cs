@@ -10,13 +10,16 @@ public class ScoreManager : MonoBehaviour
     public AudioSource hitSFX;
     public AudioSource missSFX;
 
-    [Header("UI")] public TextMeshPro scoreText;
-    public TextMeshPro multiplierText;
+    [Header("UI")] public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI multiplierText;
     public Image multiplierBar;
-    public TextMeshPro notesHitText;
-    public TextMeshPro longestStreakText;
-    public TextMeshPro perfectNotesHitText;
-    public TextMeshPro perfectLongestStreakText;
+    public TextMeshProUGUI notesHitText;
+    public TextMeshProUGUI longestStreakText;
+    public TextMeshProUGUI perfectNotesHitText;
+    public TextMeshProUGUI perfectLongestStreakText;
+    public GameObject hitTextPrefab;
+    public RectTransform hitTextSpawn;
+
 
     [Header("Score Values")] public int scorePerFineNote = 10;
     public int scorePerGoodNote = 20;
@@ -29,7 +32,7 @@ public class ScoreManager : MonoBehaviour
     public float goodTiming = 0.075f;
     public float greatTiming = 0.05f;
     public float perfectTiming = 0.025f;
-    
+
     private int _score;
     private int _scoreMultiplier = 1;
     private int _currentStreak;
@@ -75,18 +78,21 @@ public class ScoreManager : MonoBehaviour
             Debug.Log("Fine hit");
             _score += scorePerFineNote * _scoreMultiplier;
             _currentPerfectStreak = 0;
+            SpawnHitText("FINE");
         }
         else if (type == 1)
         {
             Debug.Log("Good hit");
             _score += scorePerGoodNote * _scoreMultiplier;
             _currentPerfectStreak = 0;
+            SpawnHitText("GOOD");
         }
         else if (type == 2)
         {
             Debug.Log("Great hit");
             _score += scorePerGreatNote * _scoreMultiplier;
             _currentPerfectStreak = 0;
+            SpawnHitText("GREAT");
         }
         else if (type == 3)
         {
@@ -95,11 +101,12 @@ public class ScoreManager : MonoBehaviour
             _perfectNotesHit++;
             _currentPerfectStreak++;
             if (_currentPerfectStreak > _maxPerfectStreak) _maxPerfectStreak = _currentPerfectStreak;
+            SpawnHitText("PERFECT");
         }
 
         _currentStreak++;
         if (_currentStreak > _maxStreak) _maxStreak = _currentStreak;
-        
+
         UpdateText();
         Instance.hitSFX.Play();
     }
@@ -108,16 +115,24 @@ public class ScoreManager : MonoBehaviour
     {
         _totalNotes++;
         _currentStreak = 0;
+        _currentPerfectStreak = 0;
         _scoreMultiplier = 1;
         multiplierBar.fillAmount = 0;
         UpdateText();
         Instance.missSFX.Play();
+        SpawnHitText("MISS");
     }
 
     private void UpdateText()
     {
         scoreText.text = _score.ToString();
         multiplierText.text = _scoreMultiplier + "X";
+    }
+
+    private void SpawnHitText(string text)
+    {
+        Instantiate(hitTextPrefab, hitTextSpawn.position, Quaternion.identity, hitTextSpawn);
+        hitTextPrefab.GetComponent<TextMeshProUGUI>().text = text;
     }
 
     public void SetVictoryText()

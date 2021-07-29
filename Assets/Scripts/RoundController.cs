@@ -11,7 +11,7 @@ public class RoundController : MonoBehaviour
     public Player[] players;
     public int currentPlayerIndex;
     public int currentOpponentIndex;
-    public TextMeshPro phaseText;
+    public TextMeshProUGUI phaseText;
 
     [Header("End Round Screens")] public GameObject victoryScreen;
     public GameObject defeatScreen;
