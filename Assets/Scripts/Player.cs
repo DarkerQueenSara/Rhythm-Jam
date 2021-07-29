@@ -111,4 +111,16 @@ public class Player : MonoBehaviour
 
         GameEvents.Instance.OnPlayerDied(args);
     }
+
+    public void SetSprite(Sprite sprite) {
+        GetComponentInChildren<Image>().sprite = sprite;
+    }
+
+    public void SetSpriteFront() {
+        SetSprite(frontSprite);
+    }
+
+    public void SetSpriteBack() {
+        SetSprite(backSprite);
+    }
 }

@@ -62,7 +62,6 @@ public class RoundController : MonoBehaviour
         {
             currentOpponentIndex = currentPlayerIndex;
             currentPlayerIndex = (currentPlayerIndex + 1) % players.Length;
-            PositionPlayers();
         }
     }
 
@@ -73,9 +72,11 @@ public class RoundController : MonoBehaviour
         }*/
     }
 
-    void PositionPlayers()
+    public void UpdatePlayerSprites()
     {
         //set players in new positions
+        GetCurrentPlayer().SetSpriteFront();
+        GetCurrentOpponent().SetSpriteBack();
     }
 
     public Player GetCurrentPlayer()
