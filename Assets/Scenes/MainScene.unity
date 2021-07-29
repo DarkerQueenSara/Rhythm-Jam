@@ -1195,7 +1195,7 @@ MonoBehaviour:
   notePrefab: {fileID: 984049130662714434, guid: df55a29bfc6446f479be47f91639349c, type: 3}
   timeStamps: []
   lyricIndex: 
-  lyricsText: {fileID: 0}
+  lyricsText: {fileID: 634112843}
 --- !u!1 &441503019
 GameObject:
   m_ObjectHideFlags: 0
@@ -3333,14 +3333,7 @@ MonoBehaviour:
   phaseText: {fileID: 940164424}
   victoryScreen: {fileID: 693418425}
   defeatScreen: {fileID: 1305400560}
-  toDisableOnEnd:
-  - {fileID: 940164422}
-  - {fileID: 634112841}
-  - {fileID: 1395892258}
-  - {fileID: 1395892258}
-  - {fileID: 557011215}
-  - {fileID: 1761606695}
-  - {fileID: 1201264595}
+  toDisableOnEnd: []
   currentRoundPhase: 0
 --- !u!114 &1022559059
 MonoBehaviour:
@@ -4851,7 +4844,7 @@ MonoBehaviour:
   notePrefab: {fileID: 984049130662714434, guid: a1e862e84f04bda42b6cbfef5c342fd0, type: 3}
   timeStamps: []
   lyricIndex: 
-  lyricsText: {fileID: 0}
+  lyricsText: {fileID: 634112843}
 --- !u!1 &1893990604
 GameObject:
   m_ObjectHideFlags: 0
@@ -5187,7 +5180,7 @@ MonoBehaviour:
   notePrefab: {fileID: 984049130662714434, guid: 0f1b9f498aeea07448e327fd42b6c24f, type: 3}
   timeStamps: []
   lyricIndex: 
-  lyricsText: {fileID: 0}
+  lyricsText: {fileID: 634112843}
 --- !u!1 &1984373849
 GameObject:
   m_ObjectHideFlags: 0
@@ -5690,7 +5683,7 @@ MonoBehaviour:
   notePrefab: {fileID: 984049130662714434, guid: d17c49e2ac4a7e9418c0c5485b253b7d, type: 3}
   timeStamps: []
   lyricIndex: 
-  lyricsText: {fileID: 0}
+  lyricsText: {fileID: 634112843}
 --- !u!114 &2114203710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6208,6 +6201,7 @@ MonoBehaviour:
   scoreText: {fileID: 557011217}
   multiplierText: {fileID: 1761606697}
   multiplierBar: {fileID: 1201264597}
+  finalScoreText: {fileID: 1722674150}
   notesHitText: {fileID: 1154134645}
   longestStreakText: {fileID: 531595141}
   perfectNotesHitText: {fileID: 778634395}
@@ -6220,10 +6214,10 @@ MonoBehaviour:
   scorePerPerfectNote: 40
   notesToIncreaseMultiplier: 10
   multiplierIncrease: 2
-  fineTiming: 0.1
-  goodTiming: 0.075
-  greatTiming: 0.05
-  perfectTiming: 0.025
+  fineTiming: 0.2
+  goodTiming: 0.15
+  greatTiming: 0.1
+  perfectTiming: 0.05
 --- !u!4 &8049147978286385299
 Transform:
   m_ObjectHideFlags: 0

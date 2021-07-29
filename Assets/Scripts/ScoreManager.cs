@@ -13,6 +13,7 @@ public class ScoreManager : MonoBehaviour
     [Header("UI")] public TextMeshProUGUI scoreText;
     public TextMeshProUGUI multiplierText;
     public Image multiplierBar;
+    public TextMeshProUGUI finalScoreText;
     public TextMeshProUGUI notesHitText;
     public TextMeshProUGUI longestStreakText;
     public TextMeshProUGUI perfectNotesHitText;
@@ -137,6 +138,7 @@ public class ScoreManager : MonoBehaviour
 
     public void SetVictoryText()
     {
+        finalScoreText.text = "Total Score: " + _score;
         notesHitText.text = "Notes Hit: " + _notesHit + "/" + _totalNotes + " (" +
                             Mathf.FloorToInt((float) _notesHit / _totalNotes) * 100 + "%)";
         longestStreakText.text = "Longest Streak: " + _maxStreak + " notes";

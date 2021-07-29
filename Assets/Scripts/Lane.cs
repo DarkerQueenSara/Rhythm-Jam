@@ -21,12 +21,12 @@ public class Lane : MonoBehaviour
 
     public TextMeshProUGUI lyricsText;
     private Image _image;
-    
+
     private bool _generatedLists;
     private bool _lineBreak;
     private bool _stop;
     private int _lastHitType;
-    
+
     private Player _currentPlayer;
     private Player _currentOpponent;
 
@@ -65,7 +65,8 @@ public class Lane : MonoBehaviour
 
     private void Update()
     {
-        if(!_stop) {
+        if (!_stop)
+        {
             string[] lyrics = SongManager.Instance.lyrics;
 
             if (_spawnIndex < timeStamps.Count)
@@ -85,16 +86,16 @@ public class Lane : MonoBehaviour
                 double timeStamp = timeStamps[_inputIndex];
                 //double marginOfError = SongManager.Instance.marginOfError;
                 double audioTime = SongManager.GetAudioSourceTime() -
-                                (SongManager.Instance.inputDelayInMilliseconds / 1000.0);
-
-                if (_lineBreak)
-                {
-                    lyricsText.text = "";
-                    _lineBreak = false;
-                }
+                                   (SongManager.Instance.inputDelayInMilliseconds / 1000.0);
 
                 if (timeStamp + ScoreManager.Instance.fineTiming < audioTime)
                 {
+                    if (_lineBreak)
+                    {
+                        lyricsText.text = "";
+                        _lineBreak = false;
+                    }
+
                     Miss();
                     //Debug.Log("Miss on " + _inputIndex);
                     lyricsText.text += "uh... ";
@@ -114,7 +115,6 @@ public class Lane : MonoBehaviour
 
                 if (IsPlayer() && Input.GetKeyDown(input) || !IsPlayer())
                 {
-                    
                     if (IsPlayer())
                         _image.color = new Color(0, 0, 0);
 
@@ -131,6 +131,12 @@ public class Lane : MonoBehaviour
                             if (_generatedLists && _inputIndex < lyricIndex.Count &&
                                 lyricIndex[_inputIndex] < lyrics.Length)
                             {
+                                if (_lineBreak)
+                                {
+                                    lyricsText.text = "";
+                                    _lineBreak = false;
+                                }
+
                                 String word = lyrics[lyricIndex[_inputIndex]];
                                 char last = word.ToCharArray()[word.Length - 1];
                                 if (last == '\r' || last == '\n' || last == '\t' || last == '\v')
@@ -172,24 +178,28 @@ public class Lane : MonoBehaviour
             _lastHitType = 3;
             return true;
         }
+
         if (Mathf.Abs((float) (audioTime - timeStamp)) <= ScoreManager.Instance.greatTiming)
         {
             _lastHitType = 2;
             return true;
         }
+
         if (Mathf.Abs((float) (audioTime - timeStamp)) <= ScoreManager.Instance.goodTiming)
         {
             _lastHitType = 1;
             return true;
         }
+
         if (Mathf.Abs((float) (audioTime - timeStamp)) <= ScoreManager.Instance.fineTiming)
         {
             _lastHitType = 0;
             return true;
         }
+
         return false;
     }
-    
+
     private void Hit(int hitPointAmount)
     {
         if (RoundController.Instance.currentRoundPhase == RoundController.RoundPhase.COMEBACK)
@@ -220,10 +230,12 @@ public class Lane : MonoBehaviour
         _currentOpponent = RoundController.Instance.GetCurrentOpponent();
     }
 
-    public void StopLane() {
+    public void StopLane()
+    {
         _stop = true;
 
-        foreach(var note in _notes) {
+        foreach (var note in _notes)
+        {
             note.StopNote();
         }
     }
