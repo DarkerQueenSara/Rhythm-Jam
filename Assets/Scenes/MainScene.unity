@@ -990,7 +990,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   noteRestriction: 7
-  input: 0
+  inputs: 
   notePrefab: {fileID: 0}
   timeStamps: []
   lyricIndex: 
@@ -1518,7 +1518,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   noteRestriction: 2
-  input: 119
+  inputs: 7300000012010000
   notePrefab: {fileID: 984049130662714434, guid: df55a29bfc6446f479be47f91639349c, type: 3}
   timeStamps: []
   lyricIndex: 
@@ -5662,7 +5662,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   noteRestriction: 4
-  input: 101
+  inputs: 7700000011010000
   notePrefab: {fileID: 984049130662714434, guid: a1e862e84f04bda42b6cbfef5c342fd0, type: 3}
   timeStamps: []
   lyricIndex: 
@@ -6352,7 +6352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   noteRestriction: 5
-  input: 114
+  inputs: 6400000013010000
   notePrefab: {fileID: 984049130662714434, guid: 0f1b9f498aeea07448e327fd42b6c24f, type: 3}
   timeStamps: []
   lyricIndex: 
@@ -6960,7 +6960,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   noteRestriction: 0
-  input: 113
+  inputs: 6100000014010000
   notePrefab: {fileID: 984049130662714434, guid: d17c49e2ac4a7e9418c0c5485b253b7d, type: 3}
   timeStamps: []
   lyricIndex: 

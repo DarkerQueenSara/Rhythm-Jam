@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class Lane : MonoBehaviour
 {
     public Melanchall.DryWetMidi.MusicTheory.NoteName noteRestriction;
-    public KeyCode input;
+    public List<KeyCode> inputs;
 
     public GameObject notePrefab;
 
@@ -113,7 +113,7 @@ public class Lane : MonoBehaviour
                     }
                 }
 
-                if (IsPlayer() && Input.GetKeyDown(input) || !IsPlayer())
+                if (IsPlayer() && CheckInput() || !IsPlayer())
                 {
                     if (IsPlayer())
                         _image.color = new Color(0, 0, 0);
@@ -159,7 +159,7 @@ public class Lane : MonoBehaviour
                 }
             }
 
-            if (!Input.GetKey(input))
+            if (!CheckInput())
             {
                 _image.color = new Color(255, 255, 255);
             }
@@ -169,6 +169,16 @@ public class Lane : MonoBehaviour
     private bool IsPlayer()
     {
         return _currentPlayer.playerType == Player.PlayerType.PLAYER;
+    }
+
+    private bool CheckInput()
+    {
+        foreach (KeyCode k in inputs)
+        {
+            if (Input.GetKeyDown(k)) return true;
+        }
+
+        return false;
     }
 
     private bool CheckHit(double audioTime, double timeStamp)
