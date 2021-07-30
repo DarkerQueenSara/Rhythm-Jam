@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
         GameEvents.Instance.RoundPhaseOver += RoundPhaseOver;
         currentHealth = maxHealth;
         playerSprite = transform.Find("Sprite").gameObject;
-        playerSpriteInitialPosition = playerSprite.transform.position;
+        playerSpriteInitialPosition = Vector3.zero;
     }
 
     private void Update()
@@ -57,16 +57,20 @@ public class Player : MonoBehaviour
         healthToRemove += damage;
         backHealthBar.color = Color.red;
         //se calhar tenho que usar lerp
-        frontHealthBar.fillAmount -= (float) damage / maxHealth;
+        //frontHealthBar.fillAmount -= (float) damage / maxHealth;
         DamageAnimation(damage);
+        HealthBarDamageAnimation();
+
     }
 
     public void DealDamage()
     {
+        Debug.Log("Heal to remove" + healthToRemove);
         currentHealth -= healthToRemove;
         healthToRemove = 0;
         //se calhar tenho que usar lerp
-        backHealthBar.fillAmount = frontHealthBar.fillAmount;
+        //backHealthBar.fillAmount = frontHealthBar.fillAmount;
+        HealthBarFinishDamageAnimation();
 
         if(currentHealth <= 0) {
             Die();
@@ -78,14 +82,16 @@ public class Player : MonoBehaviour
         currentHealth += health;
         backHealthBar.color = Color.yellow;
         //se calhar tenho que usar lerp
-        backHealthBar.fillAmount += (float) health / maxHealth;
+        //backHealthBar.fillAmount += (float) health / maxHealth;
+        HealthBarHealAnimation();
         Invoke(nameof(FinishHeal), healTime);
     }
 
     private void FinishHeal()
     {
         //se calhar tenho que usar lerp
-        frontHealthBar.fillAmount = backHealthBar.fillAmount;
+        //frontHealthBar.fillAmount = backHealthBar.fillAmount;
+        HealthBarFinishHealAnimation();
     }
 
 
@@ -108,11 +114,10 @@ public class Player : MonoBehaviour
     }
 
     void RoundPhaseOver(object sender, EventArgs eventArgs) {
-        if (RoundController.Instance.GetCurrentOpponent() == this && RoundController.Instance.currentRoundPhase == RoundController.RoundPhase.ATTACK) {
+        if (RoundController.Instance.GetCurrentPlayer() == this && RoundController.Instance.currentRoundPhase == RoundController.RoundPhase.COMEBACK) {
+            //finish damage at the beginning of comeback round
             DealDamage();
-        }/* else if(RoundController.Instance.GetCurrentPlayer() == this && RoundController.Instance.currentRoundPhase == RoundController.RoundPhase.COMEBACK) {
-            FinishHeal();
-        }*/
+        }
     }
 
     void Die() {
@@ -135,17 +140,45 @@ public class Player : MonoBehaviour
     }
 
     void DamageAnimation(float damage) {
-        Debug.Log("damage animation");
         DamageAnimationX(damage);
     }
 
     void DamageAnimationX(float damage) {
+        Debug.Log(damageAnimationDistance * damage/9f);
         LeanTween.cancel(playerSprite);
         LeanTween.moveX(playerSprite, playerSprite.transform.position.x + damageAnimationDistance * damage/9f, damageAnimationTime/2).setOnComplete(DamageAnimationReset);
     }
 
     void DamageAnimationReset() {
-        LeanTween.move(playerSprite,  playerSpriteInitialPosition, damageAnimationTime/2);
+        LeanTween.moveLocal(playerSprite,  playerSpriteInitialPosition, damageAnimationTime/2);
+    }
+
+    void HealthBarDamageAnimation() {
+        LeanTween.cancel(frontHealthBar.gameObject);
+        LeanTween.value(frontHealthBar.gameObject, UpdateValueFrontHealthBar, frontHealthBar.fillAmount, ((float)currentHealth-healthToRemove)/maxHealth, healthBarDamageAnimationTime);
+    }
+
+    void HealthBarFinishDamageAnimation() {
+        LeanTween.cancel(backHealthBar.gameObject);
+        LeanTween.value(backHealthBar.gameObject, UpdateValueBackHealthBar, backHealthBar.fillAmount, ((float)currentHealth)/maxHealth, healthBarDamageAnimationTime);
+    }
+
+    void HealthBarHealAnimation() {
+        LeanTween.cancel(backHealthBar.gameObject);
+        LeanTween.value(backHealthBar.gameObject, UpdateValueBackHealthBar, backHealthBar.fillAmount, ((float)currentHealth)/maxHealth, healthBarHealAnimationTime);
+    }
+
+    void HealthBarFinishHealAnimation() {
+        LeanTween.cancel(frontHealthBar.gameObject);
+        LeanTween.value(frontHealthBar.gameObject, UpdateValueFrontHealthBar, frontHealthBar.fillAmount, ((float)currentHealth)/maxHealth, healthBarHealAnimationTime);
+    }
+
+    void UpdateValueFrontHealthBar(float val, float ratio) {
+        frontHealthBar.fillAmount = val;
+    }
+
+    void UpdateValueBackHealthBar(float val, float ratio) {
+        backHealthBar.fillAmount = val;
     }
 
 }
