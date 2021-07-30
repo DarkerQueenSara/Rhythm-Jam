@@ -29,12 +29,17 @@ public class Lane : MonoBehaviour
 
     private Player _currentPlayer;
     private Player _currentOpponent;
+    public float arrowScaleUnfocused;
+    public float arrowScaleFocused;
+    public float arrowFocusTime;
+    private RectTransform _arrowIndicator;
 
 
     private void Start()
     {
         GameEvents.Instance.RoundPhaseOver += RoundPhaseOver;
         _image = GetComponent<Image>();
+        _arrowIndicator = transform.Find("Arrow").GetComponent<RectTransform>();
         UpdatePlayers();
         lyricsText.text = "";
         _stop = false;
@@ -81,6 +86,9 @@ public class Lane : MonoBehaviour
                 }
             }
 
+            if (IsPlayer() && CheckInput())
+                FocusArrow();
+
             if (_inputIndex < timeStamps.Count)
             {
                 double timeStamp = timeStamps[_inputIndex];
@@ -115,14 +123,13 @@ public class Lane : MonoBehaviour
 
                 if (IsPlayer() && CheckInput() || !IsPlayer())
                 {
-                    if (IsPlayer())
-                        _image.color = new Color(0, 0, 0);
 
                     if (CheckHit(audioTime, timeStamp))
                     {
                         if (IsPlayer() || (!IsPlayer() && _currentPlayer.AIHit()))
                         {
-                            _image.color = new Color(0, 0, 0);
+                            if (!IsPlayer())
+                                FocusArrow();
 
                             //hit note
                             //Debug.Log("Hit on " + _inputIndex + " " + SongManager.Instance.lyrics[lyricIndex[_inputIndex]]);
@@ -157,11 +164,6 @@ public class Lane : MonoBehaviour
                         }
                     }
                 }
-            }
-
-            if (!CheckInput())
-            {
-                _image.color = new Color(255, 255, 255);
             }
         }
     }
@@ -248,5 +250,15 @@ public class Lane : MonoBehaviour
         {
             note.StopNote();
         }
+    }
+
+    void FocusArrow() {
+        LeanTween.cancel(_arrowIndicator);
+        LeanTween.scale(_arrowIndicator, new Vector2(arrowScaleFocused, arrowScaleFocused), arrowFocusTime/2).setOnComplete(UnfocusArrow);
+    }
+
+    void UnfocusArrow() {
+        LeanTween.cancel(_arrowIndicator);
+        LeanTween.scale(_arrowIndicator, new Vector2(arrowScaleUnfocused, arrowScaleUnfocused), arrowFocusTime/2);
     }
 }

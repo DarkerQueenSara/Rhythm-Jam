@@ -64,6 +64,8 @@ public class ScoreManager : MonoBehaviour
 
     public void Hit(int type, bool isPlayer)
     {
+        Instance.hitSFX.Play();
+
         if (!isPlayer) return;
         
         _notesHit++;
@@ -111,7 +113,6 @@ public class ScoreManager : MonoBehaviour
         if (_currentStreak > _maxStreak) _maxStreak = _currentStreak;
 
         UpdateText();
-        Instance.hitSFX.Play();
     }
 
     public void Miss(bool isPlayer)

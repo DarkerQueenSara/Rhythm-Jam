@@ -999,6 +999,9 @@ MonoBehaviour:
   timeStamps: []
   lyricIndex: 
   lyricsText: {fileID: 0}
+  arrowScaleUnfocused: 0
+  arrowScaleFocused: 0
+  arrowFocusTime: 0
   controlIndex: 0
 --- !u!1 &337353821
 GameObject:
@@ -1527,6 +1530,9 @@ MonoBehaviour:
   timeStamps: []
   lyricIndex: 
   lyricsText: {fileID: 634112843}
+  arrowScaleUnfocused: 1
+  arrowScaleFocused: 2
+  arrowFocusTime: 0.1
 --- !u!1 &441503019
 GameObject:
   m_ObjectHideFlags: 0
@@ -5671,6 +5677,9 @@ MonoBehaviour:
   timeStamps: []
   lyricIndex: 
   lyricsText: {fileID: 634112843}
+  arrowScaleUnfocused: 1
+  arrowScaleFocused: 2
+  arrowFocusTime: 0.1
 --- !u!1 &1885961791
 GameObject:
   m_ObjectHideFlags: 0
@@ -6361,6 +6370,9 @@ MonoBehaviour:
   timeStamps: []
   lyricIndex: 
   lyricsText: {fileID: 634112843}
+  arrowScaleUnfocused: 1
+  arrowScaleFocused: 2
+  arrowFocusTime: 0.1
 --- !u!1 &1984373849
 GameObject:
   m_ObjectHideFlags: 0
@@ -6973,6 +6985,9 @@ MonoBehaviour:
   timeStamps: []
   lyricIndex: 
   lyricsText: {fileID: 634112843}
+  arrowScaleUnfocused: 1
+  arrowScaleFocused: 2
+  arrowFocusTime: 0.1
 --- !u!114 &2114203710
 MonoBehaviour:
   m_ObjectHideFlags: 0
