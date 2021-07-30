@@ -211,12 +211,12 @@ public class Lane : MonoBehaviour
             _currentOpponent.AddDamage(hitPointAmount);
         }
 
-        ScoreManager.Instance.Hit(_lastHitType);
+        ScoreManager.Instance.Hit(_lastHitType, IsPlayer());
     }
 
     private void Miss()
     {
-        ScoreManager.Instance.Miss();
+        ScoreManager.Instance.Miss(IsPlayer());
     }
 
     private void RoundPhaseOver(object sender, EventArgs eventArgs)

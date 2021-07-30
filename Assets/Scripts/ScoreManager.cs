@@ -62,8 +62,10 @@ public class ScoreManager : MonoBehaviour
         UpdateText();
     }
 
-    public void Hit(int type)
+    public void Hit(int type, bool isPlayer)
     {
+        if (!isPlayer) return;
+        
         _notesHit++;
         _totalNotes++;
 
@@ -112,8 +114,10 @@ public class ScoreManager : MonoBehaviour
         Instance.hitSFX.Play();
     }
 
-    public void Miss()
+    public void Miss(bool isPlayer)
     {
+        if (!isPlayer) return;
+
         _totalNotes++;
         _currentStreak = 0;
         _currentPerfectStreak = 0;

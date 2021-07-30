@@ -3563,6 +3563,9 @@ MonoBehaviour:
   currentPlayerIndex: 0
   currentOpponentIndex: 0
   phaseText: {fileID: 940164424}
+  textBubble: {fileID: 1922172717}
+  playerColor: {r: 0.9333334, g: 0.63529414, b: 0.7607844, a: 0}
+  opponentColor: {r: 0.22352943, g: 0.13333334, b: 0.1137255, a: 0}
   victoryScreen: {fileID: 693418425}
   defeatScreen: {fileID: 1305400560}
   toDisableOnEnd: []
