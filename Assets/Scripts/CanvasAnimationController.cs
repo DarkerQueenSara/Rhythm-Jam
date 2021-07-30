@@ -27,16 +27,23 @@ public class CanvasAnimationController : MonoBehaviour
         
         if(RoundController.Instance.GetCurrentPlayer().playerType == Player.PlayerType.PLAYER) {
             animator.Play("player_out");
-            textBubble.color = opponentColor;
         } else {
             animator.Play("ai_out");
-            textBubble.color = playerColor;
         }
         phaseText.text = RoundController.Instance.currentRoundPhase.ToString();
     }
 
     public void UpdatePlayerSprites() {
         RoundController.Instance.UpdatePlayerSprites();
+
+        //update player colors in bubble
+        if(RoundController.Instance.GetCurrentPlayer().playerType == Player.PlayerType.PLAYER) {
+            textBubble.color = playerColor; //change primary color
+            //FIXME: missing secondary color
+        } else {
+            textBubble.color = opponentColor; //change primary color
+            //FIXME: missing secondary color
+        }
     }
 
     public void CleanLyricsText() {
