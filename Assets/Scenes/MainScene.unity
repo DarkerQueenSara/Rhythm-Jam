@@ -1423,6 +1423,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b830a427accc8b143874267a05aa7fdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  phaseText: {fileID: 940164424}
+  textBubble: {fileID: 1922172717}
+  playerColor: {r: 0.9333334, g: 0.63529414, b: 0.7607844, a: 1}
+  opponentColor: {r: 0.22352943, g: 0.13333334, b: 0.1137255, a: 1}
   lyricsText: {fileID: 634112843}
 --- !u!1 &363957176
 GameObject:
@@ -1604,7 +1608,7 @@ GameObject:
   m_Component:
   - component: {fileID: 446926696}
   m_Layer: 5
-  m_Name: Scenery Front
+  m_Name: SceneryFront
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1714,7 +1718,7 @@ GameObject:
   - component: {fileID: 479717246}
   - component: {fileID: 479717245}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: BackBubble
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2629,7 +2633,7 @@ GameObject:
   m_Component:
   - component: {fileID: 658617649}
   m_Layer: 5
-  m_Name: Scenery Back
+  m_Name: SceneryBack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3562,10 +3566,6 @@ MonoBehaviour:
   - {fileID: 1985669703}
   currentPlayerIndex: 0
   currentOpponentIndex: 0
-  phaseText: {fileID: 940164424}
-  textBubble: {fileID: 1922172717}
-  playerColor: {r: 0.9333334, g: 0.63529414, b: 0.7607844, a: 0}
-  opponentColor: {r: 0.22352943, g: 0.13333334, b: 0.1137255, a: 0}
   victoryScreen: {fileID: 693418425}
   defeatScreen: {fileID: 1305400560}
   toDisableOnEnd: []
@@ -5958,7 +5958,7 @@ GameObject:
   - component: {fileID: 1922172718}
   - component: {fileID: 1922172717}
   m_Layer: 5
-  m_Name: Image
+  m_Name: FrontBubble
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7088,7 +7088,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d19e2f9966a07c74ca5412d07412ac18, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 68d715911c26d1c4cbb06ce0632e8e95, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

@@ -1,8 +1,6 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
-using TMPro;
-using UnityEngine.UI;
 
 public class RoundController : MonoBehaviour
 {
@@ -12,11 +10,6 @@ public class RoundController : MonoBehaviour
     public Player[] players;
     public int currentPlayerIndex;
     public int currentOpponentIndex;
-
-    [Header("UI")] public TextMeshProUGUI phaseText;
-    public Image textBubble;
-    public Color playerColor;
-    public Color opponentColor;
 
     [Header("End Round Screens")] public GameObject victoryScreen;
     public GameObject defeatScreen;
@@ -48,8 +41,7 @@ public class RoundController : MonoBehaviour
         currentPlayerIndex = 0;
         currentOpponentIndex = 1;
         currentRoundPhase = RoundPhase.ATTACK;
-        textBubble.color = playerColor;
-        phaseText.text = currentRoundPhase.ToString();
+        //phaseText.text = currentRoundPhase.ToString();
     }
 
     public void RoundPhaseOver(object sender, EventArgs eventArgs)
@@ -62,12 +54,10 @@ public class RoundController : MonoBehaviour
         int nextRoundPhase = (int) currentRoundPhase + 1;
         nextRoundPhase = nextRoundPhase % (Enum.GetValues(typeof(RoundPhase)).GetUpperBound(0) + 1);
         currentRoundPhase = (RoundPhase) nextRoundPhase;
-        phaseText.text = currentRoundPhase.ToString();
-
-        textBubble.color = textBubble.color == playerColor
-            ? textBubble.color = opponentColor
-            : textBubble.color = playerColor;
-
+        //phaseText.text = currentRoundPhase.ToString();
+        //textBubble.color = textBubble.color == playerColor
+        //    ? textBubble.color = opponentColor
+        //   : textBubble.color = playerColor;
         if (nextRoundPhase == 0)
         {
             currentOpponentIndex = currentPlayerIndex;

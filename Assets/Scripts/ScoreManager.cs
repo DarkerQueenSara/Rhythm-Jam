@@ -78,28 +78,28 @@ public class ScoreManager : MonoBehaviour
 
         if (type == 0)
         {
-            Debug.Log("Fine hit");
+            //Debug.Log("Fine hit");
             _score += scorePerFineNote * _scoreMultiplier;
             _currentPerfectStreak = 0;
             SpawnHitText("FINE");
         }
         else if (type == 1)
         {
-            Debug.Log("Good hit");
+            //Debug.Log("Good hit");
             _score += scorePerGoodNote * _scoreMultiplier;
             _currentPerfectStreak = 0;
             SpawnHitText("GOOD");
         }
         else if (type == 2)
         {
-            Debug.Log("Great hit");
+            //Debug.Log("Great hit");
             _score += scorePerGreatNote * _scoreMultiplier;
             _currentPerfectStreak = 0;
             SpawnHitText("GREAT");
         }
         else if (type == 3)
         {
-            Debug.Log("Perfect hit");
+            //Debug.Log("Perfect hit");
             _score += scorePerPerfectNote * _scoreMultiplier;
             _perfectNotesHit++;
             _currentPerfectStreak++;
