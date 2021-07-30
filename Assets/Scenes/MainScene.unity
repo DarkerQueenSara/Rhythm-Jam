@@ -349,7 +349,11 @@ MonoBehaviour:
   backSprite: {fileID: 21300000, guid: ec9d031eb0895b14c90a2423c7196f3b, type: 3}
   backHealthBar: {fileID: 1032560134}
   frontHealthBar: {fileID: 441503021}
+  healthBarDamageAnimationTime: 0
+  healthBarHealAnimationTime: 0
   healTime: 2
+  damageAnimationDistance: -7
+  damageAnimationTime: 0.3
 --- !u!4 &117222504
 Transform:
   m_ObjectHideFlags: 0
@@ -6447,7 +6451,11 @@ MonoBehaviour:
   backSprite: {fileID: 21300000, guid: e089e67f15d6af94e99e91c94877fb11, type: 3}
   backHealthBar: {fileID: 1023341387}
   frontHealthBar: {fileID: 744360629}
+  healthBarDamageAnimationTime: 0
+  healthBarHealAnimationTime: 0
   healTime: 2
+  damageAnimationDistance: -7
+  damageAnimationTime: 0.3
 --- !u!1 &1995713465
 GameObject:
   m_ObjectHideFlags: 0

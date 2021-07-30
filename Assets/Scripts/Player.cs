@@ -28,14 +28,23 @@ public class Player : MonoBehaviour
 
     [Header("UI")]  public Image backHealthBar;
     public Image frontHealthBar;
+    public float healthBarDamageAnimationTime;
+    public float healthBarHealAnimationTime;
     public float healTime = 2f;
+    public float damageAnimationDistance;
+    public float damageAnimationTime;
 
     private float AIMissPenaltyEndTime = 0f;
+
+    private GameObject playerSprite;
+    private Vector3 playerSpriteInitialPosition;
 
     private void Start()
     {
         GameEvents.Instance.RoundPhaseOver += RoundPhaseOver;
         currentHealth = maxHealth;
+        playerSprite = transform.Find("Sprite").gameObject;
+        playerSpriteInitialPosition = playerSprite.transform.position;
     }
 
     private void Update()
@@ -49,6 +58,7 @@ public class Player : MonoBehaviour
         backHealthBar.color = Color.red;
         //se calhar tenho que usar lerp
         frontHealthBar.fillAmount -= (float) damage / maxHealth;
+        DamageAnimation(damage);
     }
 
     public void DealDamage()
@@ -123,4 +133,19 @@ public class Player : MonoBehaviour
     public void SetSpriteBack() {
         SetSprite(backSprite);
     }
+
+    void DamageAnimation(float damage) {
+        Debug.Log("damage animation");
+        DamageAnimationX(damage);
+    }
+
+    void DamageAnimationX(float damage) {
+        LeanTween.cancel(playerSprite);
+        LeanTween.moveX(playerSprite, playerSprite.transform.position.x + damageAnimationDistance * damage/9f, damageAnimationTime/2).setOnComplete(DamageAnimationReset);
+    }
+
+    void DamageAnimationReset() {
+        LeanTween.move(playerSprite,  playerSpriteInitialPosition, damageAnimationTime/2);
+    }
+
 }
