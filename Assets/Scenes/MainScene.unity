@@ -7111,7 +7111,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 68d715911c26d1c4cbb06ce0632e8e95, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a67eb7ad02707bb44b5eadf60948383c, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -7266,8 +7266,8 @@ MonoBehaviour:
   songDelayInSeconds: 0
   marginOfError: 0.07
   inputDelayInMilliseconds: 0
-  midiFileLocation: supa.mid
-  lyricFile: {fileID: 4900000, guid: 9d1e5cfe4601f074d931fca7f4060047, type: 3}
+  midiFileLocation: ronda1.mid
+  lyricFile: {fileID: 4900000, guid: f27e63c27d22e2c4999814ebe5f0684f, type: 3}
   noteTime: 1
   noteSpawnY: 110
   noteTapY: 0
