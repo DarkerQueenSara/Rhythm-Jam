@@ -22,6 +22,7 @@ public class RoundPhaseControlLane : Lane
             if(timeStamp <= audioTime) {
 
                 if(controlIndex == timeStamps.Count - 1) {
+                    Debug.Log("ROUND OVER");
                     //trigger round over
                     RoundOverArgs args = new RoundOverArgs();
                     Player currentPlayer = RoundController.Instance.GetCurrentPlayer();
@@ -38,6 +39,7 @@ public class RoundPhaseControlLane : Lane
                     GameEvents.Instance.OnRoundOver(args);
                     controlIndex++;
                 } else {
+                    Debug.Log("phase");
                     //trigger phase change
                     GameEvents.Instance.OnPreRoundPhaseOver(EventArgs.Empty);
                     controlIndex++;
