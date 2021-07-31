@@ -7,8 +7,10 @@ public class ScoreManager : MonoBehaviour
     #region SingleTon
 
     public static ScoreManager Instance { get; private set; }
-    public AudioSource hitSFX;
-    public AudioSource missSFX;
+    public AudioSource goodHitSfx;
+    public AudioSource greatHitSfx;
+    public AudioSource perfectHitSfx;
+    public AudioSource missSfx;
 
     [Header("UI")] public TextMeshProUGUI scoreText;
     public TextMeshProUGUI multiplierText;
@@ -22,15 +24,17 @@ public class ScoreManager : MonoBehaviour
     public RectTransform hitTextSpawn;
 
 
-    [Header("Score Values")] public int scorePerFineNote = 10;
+    [Header("Score Values")] //public int scorePerFineNote = 10;
     public int scorePerGoodNote = 20;
+
     public int scorePerGreatNote = 30;
     public int scorePerPerfectNote = 40;
     public int notesToIncreaseMultiplier = 10;
     public int multiplierIncrease = 2;
 
-    [Header("Timing Values")] public float fineTiming = 0.1f;
+    [Header("Timing Values")] //public float fineTiming = 0.1f;
     public float goodTiming = 0.075f;
+
     public float greatTiming = 0.05f;
     public float perfectTiming = 0.025f;
 
@@ -64,10 +68,10 @@ public class ScoreManager : MonoBehaviour
 
     public void Hit(int type, bool isPlayer)
     {
-        Instance.hitSFX.Play();
+        //Instance.goodHitSfx.Play();
 
         if (!isPlayer) return;
-        
+
         _notesHit++;
         _totalNotes++;
 
@@ -77,20 +81,20 @@ public class ScoreManager : MonoBehaviour
             _scoreMultiplier *= multiplierIncrease;
             multiplierBar.fillAmount = 0;
         }
-
-        if (type == 0)
+        /*if (type == 0)
         {
             //Debug.Log("Fine hit");
             _score += scorePerFineNote * _scoreMultiplier;
             _currentPerfectStreak = 0;
             SpawnHitText("FINE");
-        }
+        }*/
         else if (type == 1)
         {
             //Debug.Log("Good hit");
             _score += scorePerGoodNote * _scoreMultiplier;
             _currentPerfectStreak = 0;
             SpawnHitText("GOOD");
+            goodHitSfx.Play();
         }
         else if (type == 2)
         {
@@ -98,6 +102,7 @@ public class ScoreManager : MonoBehaviour
             _score += scorePerGreatNote * _scoreMultiplier;
             _currentPerfectStreak = 0;
             SpawnHitText("GREAT");
+            greatHitSfx.Play();
         }
         else if (type == 3)
         {
@@ -106,6 +111,7 @@ public class ScoreManager : MonoBehaviour
             _perfectNotesHit++;
             _currentPerfectStreak++;
             if (_currentPerfectStreak > _maxPerfectStreak) _maxPerfectStreak = _currentPerfectStreak;
+            perfectHitSfx.Play();
             SpawnHitText("PERFECT");
         }
 
@@ -125,7 +131,7 @@ public class ScoreManager : MonoBehaviour
         _scoreMultiplier = 1;
         multiplierBar.fillAmount = 0;
         UpdateText();
-        Instance.missSFX.Play();
+        missSfx.Play();
         SpawnHitText("MISS");
     }
 
@@ -145,10 +151,10 @@ public class ScoreManager : MonoBehaviour
     {
         finalScoreText.text = "Total Score: " + _score;
         notesHitText.text = "Notes Hit: " + _notesHit + "/" + _totalNotes + " (" +
-                            Mathf.FloorToInt((float) _notesHit / _totalNotes) * 100 + "%)";
+                            Mathf.FloorToInt(100.0f * _notesHit / _totalNotes) + "%)";
         longestStreakText.text = "Longest Streak: " + _maxStreak + " notes";
         perfectNotesHitText.text = "Perfect Notes Hit: " + _perfectNotesHit + "/" + _totalNotes + " (" +
-                                   Mathf.FloorToInt((float) _perfectNotesHit / _totalNotes) * 100 + "%)";
+                                   Mathf.FloorToInt(100.0f * _perfectNotesHit / _totalNotes) + "%)";
         perfectLongestStreakText.text = "Longest Perfect Streak: " + _maxPerfectStreak + " notes";
     }
 }

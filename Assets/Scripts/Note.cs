@@ -10,6 +10,7 @@ public class Note : MonoBehaviour
     private Image _image;
 
     private bool stop;
+    public bool heals;
 
     private void Start()
     {

@@ -65,7 +65,7 @@ public class Player : MonoBehaviour
 
     public void DealDamage()
     {
-        Debug.Log("Heal to remove" + healthToRemove);
+        //Debug.Log("Health to remove " + healthToRemove);
         currentHealth -= healthToRemove;
         healthToRemove = 0;
         //se calhar tenho que usar lerp

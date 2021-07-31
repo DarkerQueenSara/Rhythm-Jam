@@ -34,6 +34,7 @@ public class Lane : MonoBehaviour
     public float arrowFocusTime;
     private RectTransform _arrowIndicator;
 
+    private bool _lastNoteHealed;
 
     private void Start()
     {
@@ -78,9 +79,15 @@ public class Lane : MonoBehaviour
             {
                 if (SongManager.GetAudioSourceTime() >= timeStamps[_spawnIndex] - SongManager.Instance.noteTime)
                 {
-                    var note = Instantiate(notePrefab, transform);
+                    GameObject note = Instantiate(notePrefab, transform);
                     Note aux = note.GetComponent<Note>();
                     _notes.Add(aux);
+                    if (RoundController.Instance.currentRoundPhase == RoundController.RoundPhase.COMEBACK)
+                    {
+                        note.GetComponent<Image>().color = Color.green;
+                        aux.heals = true;
+                    }
+
                     aux.assignedTime = (float) timeStamps[_spawnIndex];
                     _spawnIndex++;
                 }
@@ -96,7 +103,7 @@ public class Lane : MonoBehaviour
                 double audioTime = SongManager.GetAudioSourceTime() -
                                    (SongManager.Instance.inputDelayInMilliseconds / 1000.0);
 
-                if (timeStamp + ScoreManager.Instance.fineTiming < audioTime)
+                if (timeStamp + ScoreManager.Instance.goodTiming < audioTime)
                 {
                     if (_lineBreak)
                     {
@@ -135,7 +142,11 @@ public class Lane : MonoBehaviour
                             //Debug.Log("Hit on " + _inputIndex + " " + SongManager.Instance.lyrics[lyricIndex[_inputIndex]]);
                             if (_inputIndex < _notes.Count && _notes[_inputIndex] != null &&
                                 _notes[_inputIndex].gameObject != null)
-                                Destroy(_notes[_inputIndex].gameObject);
+                            {
+                                GameObject aux = _notes[_inputIndex].gameObject;
+                                _lastNoteHealed = aux.GetComponent<Note>().heals;
+                                Destroy(aux);
+                            }
 
                             if (_generatedLists && _inputIndex < lyricIndex.Count &&
                                 lyricIndex[_inputIndex] < lyrics.Length)
@@ -150,7 +161,8 @@ public class Lane : MonoBehaviour
                                 char last = word.ToCharArray()[word.Length - 1];
                                 if (last == '\r' || last == '\n' || last == '\t' || last == '\v')
                                 {
-                                    lyricsText.text += word.Substring(0, word.Length - 2) + " ";
+                                    if (!word.Contains("<phase_end>"))
+                                        lyricsText.text += word.Substring(0, word.Length - 2) + " ";
                                     _lineBreak = true;
                                     last = word.ToCharArray()[word.Length - 2];
                                 }
@@ -164,6 +176,11 @@ public class Lane : MonoBehaviour
                                 _inputIndex++;
                             }
                         }
+                    }
+                    else
+                    {
+                        if (IsPlayer() && RoundController.Instance.currentRoundPhase ==
+                            RoundController.RoundPhase.ATTACK) Miss();
                     }
                 }
             }
@@ -205,32 +222,35 @@ public class Lane : MonoBehaviour
             return true;
         }
 
-        if (Mathf.Abs((float) (audioTime - timeStamp)) <= ScoreManager.Instance.fineTiming)
+        /*if (Mathf.Abs((float) (audioTime - timeStamp)) <= ScoreManager.Instance.fineTiming)
         {
             _lastHitType = 0;
             return true;
-        }
+        }*/
 
         return false;
     }
 
     private void Hit(int hitPointAmount)
     {
-        if (RoundController.Instance.currentRoundPhase == RoundController.RoundPhase.COMEBACK)
+        if (_lastNoteHealed)
         {
+            Debug.Log("This note heals");
             _currentPlayer.RestoreHealth(hitPointAmount);
         }
-        else if (RoundController.Instance.currentRoundPhase == RoundController.RoundPhase.ATTACK)
+        else 
         {
             _currentOpponent.AddDamage(hitPointAmount);
         }
 
-        ScoreManager.Instance.Hit(_lastHitType, IsPlayer());
+        ScoreManager.Instance.Hit(_lastHitType,
+            IsPlayer() && RoundController.Instance.currentRoundPhase == RoundController.RoundPhase.ATTACK);
     }
 
     private void Miss()
     {
-        ScoreManager.Instance.Miss(IsPlayer());
+        ScoreManager.Instance.Miss(IsPlayer() &&
+                                   RoundController.Instance.currentRoundPhase == RoundController.RoundPhase.ATTACK);
     }
 
     private void RoundPhaseOver(object sender, EventArgs eventArgs)
