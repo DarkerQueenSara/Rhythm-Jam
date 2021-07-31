@@ -26,6 +26,9 @@ public class Player : MonoBehaviour
 
     [Header("Sprites")] public Sprite frontSprite;
     public Sprite backSprite;
+    public List<Sprite> singingSprites;
+    private float singingSpriteEndTime = -1f;
+    public float singingSpriteDuration = 1f;
 
     [Header("UI")]  public Image backHealthBar;
     public Image frontHealthBar;
@@ -51,6 +54,13 @@ public class Player : MonoBehaviour
     private void Update()
     {
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+
+        if(RoundController.Instance.GetCurrentPlayer() == this && GetComponentInChildren<Image>().sprite != frontSprite && singingSpriteEndTime != -1f) {
+            if(Time.time > singingSpriteEndTime) {
+                SetSprite(frontSprite);
+                singingSpriteEndTime = -1f;
+            }
+        }
     }
 
     public void AddDamage(int damage)
@@ -186,6 +196,20 @@ public class Player : MonoBehaviour
 
     void UpdateValueBackHealthBar(float val, float ratio) {
         backHealthBar.fillAmount = val;
+    }
+
+    void ApplySingingSprite() {
+        if(singingSprites.Count == 0) {
+            Debug.Log("singing sprites empty");
+            return;
+        }
+        int index = Random.Range(0, singingSprites.Count);
+        SetSprite(singingSprites[index]);
+        singingSpriteEndTime = Time.time+singingSpriteDuration;
+    }
+
+    public void HitNote() {
+        ApplySingingSprite();
     }
 
 }

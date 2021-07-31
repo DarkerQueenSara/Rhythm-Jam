@@ -233,6 +233,8 @@ public class Lane : MonoBehaviour
 
     private void Hit(int hitPointAmount)
     {
+        _currentPlayer.HitNote();
+
         if (_lastNoteHealed)
         {
             //Debug.Log("This note heals");

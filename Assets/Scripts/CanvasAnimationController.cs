@@ -33,9 +33,9 @@ public class CanvasAnimationController : MonoBehaviour
 
     private void RoundPhaseOver(object sender, EventArgs args)
     {
-        if (RoundController.Instance.currentRoundPhase != RoundController.RoundPhase.ATTACK) return;
+        if (RoundController.Instance.currentRoundPhase != RoundController.RoundPhase.COMEBACK) return;
 
-        if (RoundController.Instance.GetCurrentPlayer().playerType == Player.PlayerType.PLAYER)
+        if (RoundController.Instance.GetCurrentPlayer().playerType == Player.PlayerType.AI)
         {
             _animator.Play("player_out");
         }

@@ -499,6 +499,10 @@ MonoBehaviour:
   AIMissPenalty: 0.05
   frontSprite: {fileID: 21300000, guid: 5c2aad169de7aed40b739bf0cc18ec93, type: 3}
   backSprite: {fileID: 21300000, guid: ec9d031eb0895b14c90a2423c7196f3b, type: 3}
+  singingSprites:
+  - {fileID: 21300000, guid: 04308ed36b1eb2c47b12f9003e01d2cf, type: 3}
+  - {fileID: 21300000, guid: 3209b2ef9e423dc4196072d3f656639f, type: 3}
+  singingSpriteDuration: 1
   backHealthBar: {fileID: 1032560134}
   frontHealthBar: {fileID: 441503021}
   healthBarDamageAnimationTime: 0.5
@@ -7362,6 +7366,10 @@ MonoBehaviour:
   AIMissPenalty: 0.05
   frontSprite: {fileID: 21300000, guid: f501e70878c61b04784c32b01feafe4b, type: 3}
   backSprite: {fileID: 21300000, guid: e089e67f15d6af94e99e91c94877fb11, type: 3}
+  singingSprites:
+  - {fileID: 21300000, guid: 386cb36798bc91c4391822b907a4fc2e, type: 3}
+  - {fileID: 21300000, guid: 4138487aac19b5d4884f676c82dc4eeb, type: 3}
+  singingSpriteDuration: 1
   backHealthBar: {fileID: 1023341387}
   frontHealthBar: {fileID: 744360629}
   healthBarDamageAnimationTime: 0.5
@@ -8014,7 +8022,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: a67eb7ad02707bb44b5eadf60948383c, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 913c8da91b4b80e48b6ba3b169ebee9c, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
