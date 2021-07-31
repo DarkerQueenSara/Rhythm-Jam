@@ -8,47 +8,64 @@ using UnityEngine.UI;
 
 public class CanvasAnimationController : MonoBehaviour
 {
-    [Header("UI")] 
-    public Image primaryTextBubble;
+    [Header("UI")] public Image primaryTextBubble;
     public Image secondaryTextBubble;
+    public Image gameWindow;
+    public TextMeshProUGUI lyricsText;
+
+    [Header("Colors")] public Color playerWindowColor;
+    public Color opponentWindowColor;
     public Color playerPrimaryColor;
     public Color playerSecondaryColor;
     public Color opponentPrimaryColor;
     public Color opponentSecondaryColor;
 
-    public TextMeshProUGUI lyricsText;
-    private Animator animator;
-    void Start() {
+    private Animator _animator;
+
+    private void Start()
+    {
         GameEvents.Instance.RoundPhaseOver += RoundPhaseOver;
-        animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
+        gameWindow.color = playerWindowColor;
         primaryTextBubble.color = playerPrimaryColor;
         secondaryTextBubble.color = playerSecondaryColor;
     }
 
-    void RoundPhaseOver(object sender, EventArgs args) {
-        if(RoundController.Instance.currentRoundPhase != RoundController.RoundPhase.ATTACK) return;
-        
-        if(RoundController.Instance.GetCurrentPlayer().playerType == Player.PlayerType.PLAYER) {
-            animator.Play("player_out");
-        } else {
-            animator.Play("ai_out");
+    private void RoundPhaseOver(object sender, EventArgs args)
+    {
+        if (RoundController.Instance.currentRoundPhase != RoundController.RoundPhase.ATTACK) return;
+
+        if (RoundController.Instance.GetCurrentPlayer().playerType == Player.PlayerType.PLAYER)
+        {
+            _animator.Play("player_out");
+        }
+        else
+        {
+            _animator.Play("ai_out");
         }
     }
 
-    public void UpdatePlayerSprites() {
+    public void UpdatePlayerSprites()
+    {
         RoundController.Instance.UpdatePlayerSprites();
 
         //update player colors in bubble
-        if(RoundController.Instance.GetCurrentPlayer().playerType == Player.PlayerType.PLAYER) {
+        if (RoundController.Instance.GetCurrentPlayer().playerType == Player.PlayerType.PLAYER)
+        {
             primaryTextBubble.color = playerPrimaryColor; //change primary color
             secondaryTextBubble.color = playerSecondaryColor;
-        } else {
+            gameWindow.color = playerWindowColor;
+        }
+        else
+        {
             primaryTextBubble.color = opponentPrimaryColor; //change primary color
             secondaryTextBubble.color = opponentSecondaryColor;
+            gameWindow.color = opponentWindowColor;
         }
     }
 
-    public void CleanLyricsText() {
-        if(lyricsText) lyricsText.text = "";
+    public void CleanLyricsText()
+    {
+        if (lyricsText) lyricsText.text = "";
     }
 }
