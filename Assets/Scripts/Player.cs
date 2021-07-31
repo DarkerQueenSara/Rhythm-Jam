@@ -16,8 +16,9 @@ public class Player : MonoBehaviour
     public PlayerType playerType;
 
     public int maxHealth = 100;
-    [HideInInspector] public int currentHealth;
-    [HideInInspector] public int healthToRemove;
+    
+    [Header("DON'T TOUCH THESE")]public int currentHealth;
+    public int healthToRemove;
 
     [Header("AI Options")] [Range(0.0f, 1.0f)]
     public float AIMissChance;
@@ -65,7 +66,7 @@ public class Player : MonoBehaviour
 
     public void DealDamage()
     {
-        //Debug.Log("Health to remove " + healthToRemove);
+        Debug.Log("Health to remove " + healthToRemove);
         currentHealth -= healthToRemove;
         healthToRemove = 0;
         //se calhar tenho que usar lerp
@@ -79,7 +80,11 @@ public class Player : MonoBehaviour
 
     public void RestoreHealth(int health)
     {
+        if (health < 0 || currentHealth >= maxHealth) return;
+        if (currentHealth + health > maxHealth) health = maxHealth - currentHealth;
         currentHealth += health;
+        Mathf.Clamp(currentHealth, 0, maxHealth);
+        Debug.Log("Healed " + health);
         backHealthBar.color = Color.yellow;
         //se calhar tenho que usar lerp
         //backHealthBar.fillAmount += (float) health / maxHealth;
@@ -164,6 +169,8 @@ public class Player : MonoBehaviour
     }
 
     void HealthBarHealAnimation() {
+        //LeanTween.cancel(backHealthBar.gameObject);
+        //LeanTween.value(backHealthBar.gameObject, UpdateValueBackHealthBar, backHealthBar.fillAmount, ((float)currentHealth)/maxHealth, healthBarHealAnimationTime);
         LeanTween.cancel(backHealthBar.gameObject);
         LeanTween.value(backHealthBar.gameObject, UpdateValueBackHealthBar, backHealthBar.fillAmount, ((float)currentHealth)/maxHealth, healthBarHealAnimationTime);
     }

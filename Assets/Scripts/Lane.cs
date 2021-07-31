@@ -27,8 +27,8 @@ public class Lane : MonoBehaviour
     private bool _stop;
     private int _lastHitType;
 
-    private Player _currentPlayer;
-    private Player _currentOpponent;
+    public Player currentPlayer;
+    public Player currentOpponent;
     public float arrowScaleUnfocused;
     public float arrowScaleFocused;
     public float arrowFocusTime;
@@ -41,7 +41,7 @@ public class Lane : MonoBehaviour
         GameEvents.Instance.RoundPhaseOver += RoundPhaseOver;
         _image = GetComponent<Image>();
         _arrowIndicator = transform.Find("Arrow").GetComponent<RectTransform>();
-        UpdatePlayers();
+        //UpdatePlayers();
         lyricsText.text = "";
         _stop = false;
     }
@@ -133,7 +133,7 @@ public class Lane : MonoBehaviour
                 {
                     if (CheckHit(audioTime, timeStamp))
                     {
-                        if (IsPlayer() || (!IsPlayer() && _currentPlayer.AIHit()))
+                        if (IsPlayer() || (!IsPlayer() && currentPlayer.AIHit()))
                         {
                             if (!IsPlayer())
                                 FocusArrow();
@@ -189,7 +189,7 @@ public class Lane : MonoBehaviour
 
     private bool IsPlayer()
     {
-        return _currentPlayer.playerType == Player.PlayerType.PLAYER;
+        return currentPlayer.playerType == Player.PlayerType.PLAYER;
     }
 
     private bool CheckInput()
@@ -235,12 +235,16 @@ public class Lane : MonoBehaviour
     {
         if (_lastNoteHealed)
         {
-            Debug.Log("This note heals");
-            _currentPlayer.RestoreHealth(hitPointAmount);
+            //Debug.Log("This note heals");
+            if (hitPointAmount < 0)
+            {
+                Debug.Log("Liric negativa = " + SongManager.Instance.lyrics[lyricIndex[_inputIndex]]);
+            }
+            currentPlayer.RestoreHealth(hitPointAmount);
         }
-        else 
+        else
         {
-            _currentOpponent.AddDamage(hitPointAmount);
+            currentOpponent.AddDamage(hitPointAmount);
         }
 
         ScoreManager.Instance.Hit(_lastHitType,
@@ -260,8 +264,9 @@ public class Lane : MonoBehaviour
 
     private void UpdatePlayers()
     {
-        _currentPlayer = RoundController.Instance.GetCurrentPlayer();
-        _currentOpponent = RoundController.Instance.GetCurrentOpponent();
+        Debug.Log("Switching Players");
+        currentPlayer = RoundController.Instance.GetCurrentPlayer();
+        currentOpponent = RoundController.Instance.GetCurrentOpponent();
     }
 
     public void StopLane()

@@ -7,7 +7,8 @@ public class ScoreManager : MonoBehaviour
     #region SingleTon
 
     public static ScoreManager Instance { get; private set; }
-    public AudioSource goodHitSfx;
+    
+    [Header("Notes SFX")]public AudioSource goodHitSfx;
     public AudioSource greatHitSfx;
     public AudioSource perfectHitSfx;
     public AudioSource missSfx;
@@ -22,19 +23,14 @@ public class ScoreManager : MonoBehaviour
     public TextMeshProUGUI perfectLongestStreakText;
     public GameObject hitTextPrefab;
     public RectTransform hitTextSpawn;
-
-
-    [Header("Score Values")] //public int scorePerFineNote = 10;
-    public int scorePerGoodNote = 20;
-
+    
+    [Header("Score Values")] public int scorePerGoodNote = 20;
     public int scorePerGreatNote = 30;
     public int scorePerPerfectNote = 40;
     public int notesToIncreaseMultiplier = 10;
     public int multiplierIncrease = 2;
 
-    [Header("Timing Values")] //public float fineTiming = 0.1f;
-    public float goodTiming = 0.075f;
-
+    [Header("Timing Values")] public float goodTiming = 0.075f;
     public float greatTiming = 0.05f;
     public float perfectTiming = 0.025f;
 

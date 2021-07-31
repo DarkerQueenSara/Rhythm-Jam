@@ -1151,6 +1151,8 @@ MonoBehaviour:
   timeStamps: []
   lyricIndex: 
   lyricsText: {fileID: 0}
+  currentPlayer: {fileID: 0}
+  currentOpponent: {fileID: 0}
   arrowScaleUnfocused: 0
   arrowScaleFocused: 0
   arrowFocusTime: 0
@@ -1687,6 +1689,8 @@ MonoBehaviour:
   timeStamps: []
   lyricIndex: 
   lyricsText: {fileID: 634112843}
+  currentPlayer: {fileID: 117222503}
+  currentOpponent: {fileID: 1985669703}
   arrowScaleUnfocused: 1
   arrowScaleFocused: 2
   arrowFocusTime: 0.1
@@ -6378,6 +6382,8 @@ MonoBehaviour:
   timeStamps: []
   lyricIndex: 
   lyricsText: {fileID: 634112843}
+  currentPlayer: {fileID: 117222503}
+  currentOpponent: {fileID: 1985669703}
   arrowScaleUnfocused: 1
   arrowScaleFocused: 2
   arrowFocusTime: 0.1
@@ -7202,6 +7208,8 @@ MonoBehaviour:
   timeStamps: []
   lyricIndex: 
   lyricsText: {fileID: 634112843}
+  currentPlayer: {fileID: 117222503}
+  currentOpponent: {fileID: 1985669703}
   arrowScaleUnfocused: 1
   arrowScaleFocused: 2
   arrowFocusTime: 0.1
@@ -7817,6 +7825,8 @@ MonoBehaviour:
   timeStamps: []
   lyricIndex: 
   lyricsText: {fileID: 634112843}
+  currentPlayer: {fileID: 117222503}
+  currentOpponent: {fileID: 1985669703}
   arrowScaleUnfocused: 1
   arrowScaleFocused: 2
   arrowFocusTime: 0.1
