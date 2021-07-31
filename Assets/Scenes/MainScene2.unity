@@ -6700,7 +6700,7 @@ MonoBehaviour:
   maxHealth: 150
   currentHealth: 0
   healthToRemove: 0
-  AIMissChance: 0.1
+  AIMissChance: 0
   AIMissPenalty: 0.05
   frontSprite: {fileID: 21300000, guid: ca1d9e53d4b5145449f9740eea91a33c, type: 3}
   backSprite: {fileID: 21300000, guid: 76a24b50edc3e0444891fb8c3c41a8ab, type: 3}
