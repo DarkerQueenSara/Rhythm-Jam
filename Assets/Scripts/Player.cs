@@ -144,7 +144,7 @@ public class Player : MonoBehaviour
     }
 
     void DamageAnimationX(float damage) {
-        Debug.Log(damageAnimationDistance * damage/9f);
+        //Debug.Log(damageAnimationDistance * damage/9f);
         LeanTween.cancel(playerSprite);
         LeanTween.moveX(playerSprite, playerSprite.transform.position.x + damageAnimationDistance * damage/9f, damageAnimationTime/2).setOnComplete(DamageAnimationReset);
     }

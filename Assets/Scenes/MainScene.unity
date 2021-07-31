@@ -3579,7 +3579,7 @@ MonoBehaviour:
   victoryScreen: {fileID: 693418425}
   defeatScreen: {fileID: 1305400560}
   toDisableOnEnd: []
-  currentRoundPhase: 0
+  currentRoundPhase: 1
 --- !u!114 &1022559059
 MonoBehaviour:
   m_ObjectHideFlags: 0

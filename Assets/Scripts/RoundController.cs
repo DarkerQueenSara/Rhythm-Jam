@@ -21,7 +21,7 @@ public class RoundController : MonoBehaviour
         ATTACK
     }
 
-    public RoundPhase currentRoundPhase;
+    public RoundPhase currentRoundPhase = RoundPhase.ATTACK;
 
     private void Awake()
     {

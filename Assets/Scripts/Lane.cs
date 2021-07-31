@@ -107,7 +107,6 @@ public class Lane : MonoBehaviour
                     Miss();
                     //Debug.Log("Miss on " + _inputIndex);
                     lyricsText.text += "uh... ";
-                    _inputIndex++;
                     if (_inputIndex < timeStamps.Count)
                     {
                         timeStamp = timeStamps[_inputIndex];
@@ -119,11 +118,12 @@ public class Lane : MonoBehaviour
                         char l = w.ToCharArray()[w.Length - 1];
                         if (l == '\r' || l == '\n' || l == '\t' || l == '\v') _lineBreak = true;
                     }
+
+                    _inputIndex++;
                 }
 
                 if (IsPlayer() && CheckInput() || !IsPlayer())
                 {
-
                     if (CheckHit(audioTime, timeStamp))
                     {
                         if (IsPlayer() || (!IsPlayer() && _currentPlayer.AIHit()))
@@ -133,7 +133,8 @@ public class Lane : MonoBehaviour
 
                             //hit note
                             //Debug.Log("Hit on " + _inputIndex + " " + SongManager.Instance.lyrics[lyricIndex[_inputIndex]]);
-                            if(_notes[_inputIndex].gameObject != null)
+                            if (_inputIndex < _notes.Count && _notes[_inputIndex] != null &&
+                                _notes[_inputIndex].gameObject != null)
                                 Destroy(_notes[_inputIndex].gameObject);
 
                             if (_generatedLists && _inputIndex < lyricIndex.Count &&
@@ -253,13 +254,16 @@ public class Lane : MonoBehaviour
         }
     }
 
-    void FocusArrow() {
+    void FocusArrow()
+    {
         LeanTween.cancel(_arrowIndicator);
-        LeanTween.scale(_arrowIndicator, new Vector2(arrowScaleFocused, arrowScaleFocused), arrowFocusTime/2).setOnComplete(UnfocusArrow);
+        LeanTween.scale(_arrowIndicator, new Vector2(arrowScaleFocused, arrowScaleFocused), arrowFocusTime / 2)
+            .setOnComplete(UnfocusArrow);
     }
 
-    void UnfocusArrow() {
+    void UnfocusArrow()
+    {
         LeanTween.cancel(_arrowIndicator);
-        LeanTween.scale(_arrowIndicator, new Vector2(arrowScaleUnfocused, arrowScaleUnfocused), arrowFocusTime/2);
+        LeanTween.scale(_arrowIndicator, new Vector2(arrowScaleUnfocused, arrowScaleUnfocused), arrowFocusTime / 2);
     }
 }
