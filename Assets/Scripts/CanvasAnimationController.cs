@@ -8,18 +8,21 @@ using UnityEngine.UI;
 
 public class CanvasAnimationController : MonoBehaviour
 {
-    [Header("UI")] public TextMeshProUGUI phaseText;
-    public Image textBubble;
-    public Color playerColor;
-    public Color opponentColor;
-    
+    [Header("UI")] 
+    public Image primaryTextBubble;
+    public Image secondaryTextBubble;
+    public Color playerPrimaryColor;
+    public Color playerSecondaryColor;
+    public Color opponentPrimaryColor;
+    public Color opponentSecondaryColor;
+
     public TextMeshProUGUI lyricsText;
     private Animator animator;
     void Start() {
         GameEvents.Instance.RoundPhaseOver += RoundPhaseOver;
         animator = GetComponent<Animator>();
-        textBubble.color = playerColor;
-        phaseText.text = RoundController.Instance.currentRoundPhase.ToString();
+        primaryTextBubble.color = playerPrimaryColor;
+        secondaryTextBubble.color = playerSecondaryColor;
     }
 
     void RoundPhaseOver(object sender, EventArgs args) {
@@ -30,7 +33,6 @@ public class CanvasAnimationController : MonoBehaviour
         } else {
             animator.Play("ai_out");
         }
-        phaseText.text = RoundController.Instance.currentRoundPhase.ToString();
     }
 
     public void UpdatePlayerSprites() {
@@ -38,11 +40,11 @@ public class CanvasAnimationController : MonoBehaviour
 
         //update player colors in bubble
         if(RoundController.Instance.GetCurrentPlayer().playerType == Player.PlayerType.PLAYER) {
-            textBubble.color = playerColor; //change primary color
-            //FIXME: missing secondary color
+            primaryTextBubble.color = playerPrimaryColor; //change primary color
+            secondaryTextBubble.color = playerSecondaryColor;
         } else {
-            textBubble.color = opponentColor; //change primary color
-            //FIXME: missing secondary color
+            primaryTextBubble.color = opponentPrimaryColor; //change primary color
+            secondaryTextBubble.color = opponentSecondaryColor;
         }
     }
 

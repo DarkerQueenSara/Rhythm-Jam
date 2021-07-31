@@ -1430,10 +1430,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b830a427accc8b143874267a05aa7fdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  phaseText: {fileID: 940164424}
-  textBubble: {fileID: 1922172717}
-  playerColor: {r: 0.9333334, g: 0.63529414, b: 0.7607844, a: 1}
-  opponentColor: {r: 0.22352943, g: 0.13333334, b: 0.1137255, a: 1}
+  primaryTextBubble: {fileID: 1922172717}
+  secondaryTextBubble: {fileID: 479717245}
+  playerPrimaryColor: {r: 0.9333334, g: 0.63529414, b: 0.7607844, a: 1}
+  playerSecondaryColor: {r: 0.8117648, g: 0.7725491, b: 0.8588236, a: 1}
+  opponentPrimaryColor: {r: 0.22352943, g: 0.13333334, b: 0.1137255, a: 1}
+  opponentSecondaryColor: {r: 0.19215688, g: 0.08627451, b: 0.06666667, a: 1}
   lyricsText: {fileID: 634112843}
 --- !u!1 &363957176
 GameObject:
@@ -3123,6 +3125,133 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 744360627}
   m_CullTransparentMesh: 1
+--- !u!1 &762518407
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 762518408}
+  - component: {fileID: 762518409}
+  m_Layer: 0
+  m_Name: PerfectHitSFX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &762518408
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 762518407}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8049147978286385299}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &762518409
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 762518407}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 4f1b88b325923d54fb9f6368785e57d0, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.3
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &778634393
 GameObject:
   m_ObjectHideFlags: 0
@@ -3576,6 +3705,7 @@ MonoBehaviour:
   - {fileID: 1985669703}
   currentPlayerIndex: 0
   currentOpponentIndex: 0
+  phaseText: {fileID: 940164424}
   victoryScreen: {fileID: 693418425}
   defeatScreen: {fileID: 1305400560}
   toDisableOnEnd: []
@@ -5680,6 +5810,133 @@ MonoBehaviour:
   arrowScaleUnfocused: 1
   arrowScaleFocused: 2
   arrowFocusTime: 0.1
+--- !u!1 &1839907742
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1839907743}
+  - component: {fileID: 1839907744}
+  m_Layer: 0
+  m_Name: GreatHitSFX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1839907743
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839907742}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8049147978286385299}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1839907744
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839907742}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 60825171c5a966b498358e6a2f476a35, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.3
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1885961791
 GameObject:
   m_ObjectHideFlags: 0
@@ -7272,47 +7529,332 @@ MonoBehaviour:
   noteSpawnY: 110
   noteTapY: 0
   lyrics:
-  - I,1
-  - broke1
-  - up1
-  - with1
-  - my1
-  - ex1
-  - "girl1\r"
-  - Here's2
-  - her2
-  - "number2\r"
-  - <b>SIKE</b>,9
-  - that's2
-  - the2
-  - wrong2
-  - num0
-  - "ber!9\r"
-  - Sweet2
-  - dol2
-  - la2
-  - tea2
-  - from2
-  - Mc2
-  - Donald's,2
-  - I2
-  - drink2
-  - "that2\r"
-  - Su2
-  - per2
-  - Hot2
-  - Fire,2
-  - I2
-  - spit2
-  - "that2\r"
-  - Two2
-  - and2
-  - a2
-  - Half2
-  - Men,2
-  - I2
-  - watched2
-  - that2
+  - When0
+  - I'm0
+  - rap0
+  - ping0
+  - I0
+  - always0
+  - come0
+  - "wicked0\r"
+  - With0
+  - the0
+  - most0
+  - incre0
+  - di0
+  - ble0
+  - flow0
+  - every0
+  - time0
+  - that0
+  - a0
+  - rhyme0
+  - is0
+  - "spitten0\r"
+  - I0
+  - don't0
+  - even0
+  - need0
+  - a0
+  - written0
+  - to0
+  - win0
+  - in0
+  - this0
+  - "competition0\r"
+  - And0
+  - beat0
+  - the0
+  - beat0
+  - up0
+  - like0
+  - it's0
+  - my0
+  - as0
+  - signed0
+  - "mission0\r"
+  - If0
+  - I0
+  - re0
+  - sign0
+  - from0
+  - my0
+  - position0
+  - I0
+  - know0
+  - no0
+  - body0
+  - will0
+  - go0
+  - through0
+  - with0
+  - my0
+  - "vision0\r"
+  - So0
+  - imma0
+  - go0
+  - hard0
+  - until0
+  - the0
+  - "end0\r"
+  - Bunch0
+  - of0
+  - weak0
+  - rappers0
+  - make0
+  - me0
+  - feel0
+  - like0
+  - I'm0
+  - an0
+  - ali0
+  - "en0\r"
+  - The0
+  - way0
+  - my0
+  - mind0
+  - warps0
+  - and0
+  - "bends0\r"
+  - "<phase_end>\r"
+  - Ayo,0
+  - don't0
+  - mess0
+  - with0
+  - me0
+  - or0
+  - my0
+  - "crew0\r"
+  - "<phase_end>\r"
+  - We'll0
+  - leave0
+  - you0
+  - feeling0
+  - like0
+  - you're0
+  - at0
+  - the0
+  - Olympics0
+  - or0
+  - the0
+  - Tokyo0
+  - "zoo0\r"
+  - You'll0
+  - jump0
+  - around0
+  - so0
+  - much0
+  - you'll0
+  - get0
+  - Kriss0
+  - "Kross'ed0\r"
+  - And0
+  - my0
+  - crew0
+  - is0
+  - never0
+  - wack0
+  - because0
+  - we0
+  - stand0
+  - "strong0\r"
+  - And0
+  - we0
+  - made0
+  - a0
+  - pact,0
+  - when0
+  - I0
+  - drop0
+  - bombs0
+  - you0
+  - can0
+  - peep0
+  - the0
+  - after0
+  - "math0\r"
+  - How0
+  - you0
+  - gonna0
+  - run0
+  - circles0
+  - round0
+  - me0
+  - if0
+  - you0
+  - failed0
+  - at0
+  - "math0\r"
+  - That's0
+  - just0
+  - facts0
+  - dawg,0
+  - how0
+  - you0
+  - gonna0
+  - come0
+  - back0
+  - from0
+  - "that0\r"
+  - "<phase_end>\r"
+  - You0
+  - wanna0
+  - know0
+  - why0
+  - I0
+  - failed0
+  - all0
+  - my0
+  - clas0
+  - "ses0\r"
+  - "<phase_end>\r"
+  - I0
+  - spend0
+  - too0
+  - much0
+  - time0
+  - thinking0
+  - "them0\r"
+  - Bars,0
+  - that's0
+  - why0
+  - mine's0
+  - go0
+  - so0
+  - "hard0\r"
+  - And0
+  - yours0
+  - sound0
+  - like0
+  - ASMR,0
+  - yes0
+  - my0
+  - "guy0\r"
+  - You0
+  - might0
+  - wanna0
+  - sit0
+  - back0
+  - and0
+  - rest0
+  - my0
+  - "guy0\r"
+  - While0
+  - I0
+  - educate0
+  - you0
+  - about0
+  - how0
+  - to0
+  - rap0
+  - my0
+  - "guy0\r"
+  - Just0
+  - think0
+  - about0
+  - what0
+  - comes0
+  - next0
+  - my0
+  - "guy0\r"
+  - And0
+  - you0
+  - might0
+  - wanna0
+  - think0
+  - about0
+  - how0
+  - you0
+  - dress0
+  - my0
+  - "guy0\r"
+  - "<phase_end>\r"
+  - Well,0
+  - my0
+  - fits0
+  - clean0
+  - and0
+  - I0
+  - know0
+  - that's0
+  - a0
+  - "fact0\r"
+  - "<phase_end>\r"
+  - Plus0
+  - my0
+  - flows0
+  - cold0
+  - and0
+  - I'm0
+  - known0
+  - to0
+  - "adapt0\r"
+  - So0
+  - I0
+  - guess0
+  - I0
+  - was0
+  - just0
+  - wholly0
+  - born0
+  - to0
+  - battle0
+  - "rap0\r"
+  - And0
+  - to0
+  - this0
+  - day0
+  - on0
+  - the0
+  - streets0
+  - I0
+  - still0
+  - battle0
+  - "cats0\r"
+  - Who0
+  - thinks0
+  - they0
+  - got0
+  - the0
+  - skills0
+  - to0
+  - match0
+  - me0
+  - but0
+  - that's0
+  - a0
+  - lot0
+  - of0
+  - "cap0\r"
+  - And0
+  - all0
+  - this0
+  - pressure0
+  - on0
+  - me0
+  - guess0
+  - who0
+  - ain't0
+  - gon0
+  - "crack0\r"
+  - I0
+  - choked0
+  - once0
+  - on0
+  - the0
+  - track0
+  - and0
+  - I0
+  - promised0
+  - to0
+  - myself0
+  - that0
+  - I'd0
+  - never0
+  - do0
+  - that0
+  - "again0\r"
+  - "<phase_end>\r"
 --- !u!1 &3978996287959070145
 GameObject:
   m_ObjectHideFlags: 0
@@ -7371,9 +7913,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 1b49e4316ca98c14aacf6effe9cad6a2, type: 3}
+  m_audioClip: {fileID: 8300000, guid: ecf9b6c6a61d3684e9f6a1b2567912e0, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -7468,7 +8010,7 @@ GameObject:
   - component: {fileID: 8049147978281627339}
   - component: {fileID: 8049147978281627336}
   m_Layer: 0
-  m_Name: HitSFX
+  m_Name: GoodHitSFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7500,8 +8042,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68112e44dfb5edf43b0b8b38851024a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitSFX: {fileID: 8049147978281627336}
-  missSFX: {fileID: 8049147979721034730}
+  goodHitSfx: {fileID: 8049147978281627336}
+  greatHitSfx: {fileID: 1839907744}
+  perfectHitSfx: {fileID: 762518409}
+  missSfx: {fileID: 8049147979721034730}
   scoreText: {fileID: 557011217}
   multiplierText: {fileID: 1761606697}
   multiplierBar: {fileID: 1201264597}
@@ -7512,13 +8056,11 @@ MonoBehaviour:
   perfectLongestStreakText: {fileID: 1893990606}
   hitTextPrefab: {fileID: 3760567520557595339, guid: e95bd07c15bfa2d429e6267b2cced7f3, type: 3}
   hitTextSpawn: {fileID: 1497868260}
-  scorePerFineNote: 10
   scorePerGoodNote: 20
   scorePerGreatNote: 30
   scorePerPerfectNote: 40
   notesToIncreaseMultiplier: 10
   multiplierIncrease: 2
-  fineTiming: 0.2
   goodTiming: 0.15
   greatTiming: 0.1
   perfectTiming: 0.05
@@ -7534,6 +8076,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8049147978281627339}
+  - {fileID: 1839907743}
+  - {fileID: 762518408}
   - {fileID: 8049147979721034741}
   m_Father: {fileID: 13197552}
   m_RootOrder: 2
@@ -7567,7 +8111,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: addf5190aefd11946bf88dee06082200, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -7680,5 +8224,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8049147978286385299}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

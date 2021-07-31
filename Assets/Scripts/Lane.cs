@@ -96,7 +96,7 @@ public class Lane : MonoBehaviour
                 double audioTime = SongManager.GetAudioSourceTime() -
                                    (SongManager.Instance.inputDelayInMilliseconds / 1000.0);
 
-                if (timeStamp + ScoreManager.Instance.fineTiming < audioTime)
+                if (timeStamp + ScoreManager.Instance.goodTiming < audioTime)
                 {
                     if (_lineBreak)
                     {
@@ -165,6 +165,11 @@ public class Lane : MonoBehaviour
                             }
                         }
                     }
+                    else
+                    {
+                        if (IsPlayer() && RoundController.Instance.currentRoundPhase ==
+                            RoundController.RoundPhase.ATTACK) Miss();
+                    }
                 }
             }
         }
@@ -205,11 +210,11 @@ public class Lane : MonoBehaviour
             return true;
         }
 
-        if (Mathf.Abs((float) (audioTime - timeStamp)) <= ScoreManager.Instance.fineTiming)
+        /*if (Mathf.Abs((float) (audioTime - timeStamp)) <= ScoreManager.Instance.fineTiming)
         {
             _lastHitType = 0;
             return true;
-        }
+        }*/
 
         return false;
     }
@@ -225,12 +230,14 @@ public class Lane : MonoBehaviour
             _currentOpponent.AddDamage(hitPointAmount);
         }
 
-        ScoreManager.Instance.Hit(_lastHitType, IsPlayer());
+        ScoreManager.Instance.Hit(_lastHitType,
+            IsPlayer() && RoundController.Instance.currentRoundPhase == RoundController.RoundPhase.ATTACK);
     }
 
     private void Miss()
     {
-        ScoreManager.Instance.Miss(IsPlayer());
+        ScoreManager.Instance.Miss(IsPlayer() &&
+                                   RoundController.Instance.currentRoundPhase == RoundController.RoundPhase.ATTACK);
     }
 
     private void RoundPhaseOver(object sender, EventArgs eventArgs)
