@@ -17,6 +17,12 @@ public class GameEvents : MonoBehaviour
         handler?.Invoke(this, args);
     }
 
+    public event EventHandler PreRoundPhaseOver;
+    public virtual void OnPreRoundPhaseOver(EventArgs args) {
+        EventHandler handler = PreRoundPhaseOver;
+        handler?.Invoke(this, args);
+    }
+
     public event EventHandler<RoundOverArgs> RoundOver;
     public virtual void OnRoundOver(RoundOverArgs args) {
         EventHandler<RoundOverArgs> handler = RoundOver;

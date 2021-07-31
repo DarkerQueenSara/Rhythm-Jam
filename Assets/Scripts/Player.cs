@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     [Header("Sprites")] public Sprite frontSprite;
     public Sprite backSprite;
     public List<Sprite> singingSprites;
-    private float singingSpriteEndTime;
+    private float singingSpriteEndTime = -1f;
     public float singingSpriteDuration = 1f;
 
     [Header("UI")]  public Image backHealthBar;
@@ -54,9 +54,10 @@ public class Player : MonoBehaviour
     {
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
-        if(RoundController.Instance.GetCurrentPlayer() == this && GetComponentInChildren<Image>().sprite != frontSprite) {
+        if(RoundController.Instance.GetCurrentPlayer() == this && GetComponentInChildren<Image>().sprite != frontSprite && singingSpriteEndTime != -1f) {
             if(Time.time > singingSpriteEndTime) {
                 SetSprite(frontSprite);
+                singingSpriteEndTime = -1f;
             }
         }
     }

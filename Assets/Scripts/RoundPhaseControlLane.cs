@@ -39,7 +39,7 @@ public class RoundPhaseControlLane : Lane
                     controlIndex++;
                 } else {
                     //trigger phase change
-                    GameEvents.Instance.OnRoundPhaseOver(EventArgs.Empty);
+                    GameEvents.Instance.OnPreRoundPhaseOver(EventArgs.Empty);
                     controlIndex++;
                 }
             }

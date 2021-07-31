@@ -36,7 +36,7 @@ public class RoundController : MonoBehaviour
 
     void Start()
     {
-        GameEvents.Instance.RoundPhaseOver += RoundPhaseOver;
+        GameEvents.Instance.PreRoundPhaseOver += RoundPhaseOver;
         GameEvents.Instance.PlayerDied += PlayerDied;
         GameEvents.Instance.RoundOver += RoundOver;
 
@@ -63,6 +63,7 @@ public class RoundController : MonoBehaviour
             currentOpponentIndex = currentPlayerIndex;
             currentPlayerIndex = (currentPlayerIndex + 1) % players.Length;
         }
+        GameEvents.Instance.OnRoundPhaseOver(EventArgs.Empty);
     }
 
     void Update()
