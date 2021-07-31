@@ -7,7 +7,10 @@ So0 imma0 go0 hard0 until0 the0 end0
 Bunch0 of0 weak0 rappers0 make0 me0 feel0 like0 I'm0 an0 ali0-en0
 The0 way0 my0 mind0 warps0 and0 bends0
 
+<phase_end>
+
 Ayo,0 don't0 mess0 with0 me0 or0 my0 crew0
+<phase_end>
 We'll0 leave0 you0 feeling0 like0 you're0 at0 the0 Olympics0 or0 the0 Tokyo0 zoo0
 You'll0 jump0 around0 so0 much0 you'll0 get0 Kriss0 Kross'ed0
 And0 my0 crew0 is0 never0 wack0 because0 we0 stand0 strong0
@@ -15,7 +18,10 @@ And0 we0 made0 a0 pact,0 when0 I0 drop0 bombs0 you0 can0 peep0 the0 after0-math0
 How0 you0 gonna0 run0 circles0 round0 me0 if0 you0 failed0 at0 math0
 That's0 just0 facts0 dawg,0 how0 you0 gonna0 come0-back0 from0 that0
 
+<phase_end>
+
 You0 wanna0 know0 why0 I0 failed0 all0 my0 clas0-ses0
+<phase_end>
 I0 spend0 too0 much0 time0 thinking0 ‘bout0 them0
 Bars,0 that's0 why0 mine's0 go0 so0 hard0
 And0 yours0 sound0 like0 ASMR,0 yes0 my0 guy0
@@ -24,10 +30,14 @@ While0 I0 educate0 you0 about0 how0 to0 rap0 my0 guy0
 Just0 think0 about0 what0 comes0 next0 my0 guy0
 And0 you0 might0 wanna0 think0 about0 how0 you0 dress0 my0 guy0
 
+<phase_end>
+
 Well,0 my0 fits0 clean0 and0 I0 know0 that's0 a0 fact0
+<phase_end>
 Plus0 my0 flows0 cold0 and0 I'm0 known0 to0 adapt0
 So0 I0 guess0 I0 was0 just0 wholly0 born0 to0 battle0 rap0
 And0 to0 this0 day0 on0 the0 streets0 I0 still0 battle0 cats0
 Who0 thinks0 they0 got0 the0 skills0 to0 match0 me0 but0 that's0 a0 lot0 of0 cap0
 And0 all0 this0 pressure0 on0 me0 guess0 who0 ain't0 gon0 crack0
 I0 choked0 once0 on0 the0 track0 and0 I0 promised0 to0 myself0 that0 I'd0 never0 do0 that0 again0
+<phase_end>

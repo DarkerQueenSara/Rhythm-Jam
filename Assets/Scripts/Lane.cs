@@ -133,7 +133,8 @@ public class Lane : MonoBehaviour
 
                             //hit note
                             //Debug.Log("Hit on " + _inputIndex + " " + SongManager.Instance.lyrics[lyricIndex[_inputIndex]]);
-                            Destroy(_notes[_inputIndex].gameObject);
+                            if(_notes[_inputIndex].gameObject != null)
+                                Destroy(_notes[_inputIndex].gameObject);
 
                             if (_generatedLists && _inputIndex < lyricIndex.Count &&
                                 lyricIndex[_inputIndex] < lyrics.Length)
